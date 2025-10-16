@@ -95,7 +95,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       className={cn(
         // Base styles
-        'group relative overflow-hidden rounded-lg font-medium transition-all duration-300 ease-in-out',
+        'group relative overflow-hidden rounded-full font-medium transition-all duration-300 ease-in-out',
         'transform inline-flex items-center justify-center',
         'disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100',
         
@@ -128,11 +128,8 @@ const Button: React.FC<ButtonProps> = ({
             {text}
           </span>
         </div>
-      )}
-      
-      {/* Hover background effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-pink-primary/20 to-pink-primary/10 opacity-0 transition-opacity duration-300 ease-in-out group-hover:opacity-100" />
-    </button>
+       )}
+     </button>
   );
 };
 

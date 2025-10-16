@@ -15,17 +15,35 @@ const config: Config = {
         secondary: "var(--secondary)",
         accent: "var(--accent)",
         dark: {
-          main: "#161719",
-          highlighted: "#212225",
+          main: "var(--background)",
+          mains: "rgb(var(--background-rgb) / <alpha-value>)",
+          highlighted: "var(--secondary)",
+          highlights: "rgb(var(--secondary-rgb) / <alpha-value>)",
         },
         pink: {
-          primary: "#b12176",
+          primary: "var(--primary)",
+          primaries: "rgb(var(--primary-rgb) / <alpha-value>)",
+          accent: "var(--accent)",
+          accents: "rgb(var(--accent-rgb) / <alpha-value>)",
+        },
+        coral: {
+          primary: "var(--coral)",
+          primaries: "rgb(var(--coral-rgb) / <alpha-value>)",
         },
       },
       fontFamily: {
         'heading': ['var(--font-heading)'],
         'sans': ['var(--font-geist-sans)', 'Arial', 'Helvetica', 'sans-serif'],
         'mono': ['var(--font-geist-mono)', 'monospace'],
+      },
+        animation: {
+          'scroll': 'scroll 240s linear infinite',
+        },
+      keyframes: {
+        scroll: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
       },
     },
   },

@@ -17,7 +17,7 @@ export default function NotFound() {
             playsInline
             className="w-full h-full object-cover"
           >
-            <source src="/video/1.mp4" type="video/mp4" />
+            <source src="/videos/1.mp4" type="video/mp4" />
             {/* Fallback for browsers that don't support video */}
             <div className="w-full h-full bg-gradient-to-br from-dark-highlighted via-dark-main to-pink-primary/30"></div>
           </video>

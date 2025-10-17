@@ -31,6 +31,17 @@ body {
   --font-heading: var(--font-anton), "Anton", "Anton Placeholder", sans-serif;
 }
 
+/* Text selection styling with primary color */
+::selection {
+  background-color: var(--primary);
+  color: var(--foreground);
+}
+
+::-moz-selection {
+  background-color: var(--primary);
+  color: var(--foreground);
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -169,7 +180,6 @@ body {
   .swiper-button-prev-custom:hover,
   .swiper-button-next-custom:hover {
     background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
   }
 
   .swiper-button-prev-custom:after,

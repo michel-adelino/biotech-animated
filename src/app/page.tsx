@@ -5,6 +5,7 @@ import Layout from '../components/Layout/Layout';
 import AnimatedButton from '../components/Button';
 import FloatingLogs from '../components/FloatingLogs';
 import VideoModal from '../components/VideoModal';
+import PhaseSlider from '../components/PhaseSlider';
 
 // Testimonials data
 const testimonials = [
@@ -105,15 +106,7 @@ export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [currentPhase, setCurrentPhase] = useState(0);
-  const [isPhasesSectionActive, setIsPhasesSectionActive] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [scrollDirection, setScrollDirection] = useState<'down' | 'up'>('down');
-  const [lastScrollY, setLastScrollY] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const phasesSectionRef = useRef<HTMLDivElement>(null);
-  const phasesContainerRef = useRef<HTMLDivElement>(null);
-  const animationFrameRef = useRef<number>();
 
   const handleShowReel = () => {
     setIsVideoModalOpen(true);
@@ -158,119 +151,6 @@ export default function Home() {
     setCurrentSlide((prev) => (prev > 0 ? prev - 1 : maxSlide));
   };
 
-  // GSAP-style easing functions
-  const easeOutCubic = (t: number): number => 1 - Math.pow(1 - t, 3);
-  const easeInOutCubic = (t: number): number => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-  const easeOutQuart = (t: number): number => 1 - Math.pow(1 - t, 4);
-
-  // Smooth animation function similar to GSAP
-  const animateToPhase = (targetPhase: number) => {
-    if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current);
-    }
-
-    const startPhase = currentPhase;
-    const startTime = performance.now();
-    const duration = 1000; // 1 second animation
-
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      
-      // Apply easing
-      const easedProgress = easeOutCubic(progress);
-      const newPhase = startPhase + (targetPhase - startPhase) * easedProgress;
-      
-      setCurrentPhase(newPhase);
-      
-      if (progress < 1) {
-        animationFrameRef.current = requestAnimationFrame(animate);
-      }
-    };
-
-    animationFrameRef.current = requestAnimationFrame(animate);
-  };
-
-  // Bidirectional GSAP-style horizontal scroll animation for phases section
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!phasesSectionRef.current) return;
-
-      const currentScrollY = window.scrollY;
-      const rect = phasesSectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const sectionHeight = rect.height;
-      
-      // Detect scroll direction
-      if (currentScrollY > lastScrollY) {
-        setScrollDirection('down');
-      } else if (currentScrollY < lastScrollY) {
-        setScrollDirection('up');
-      }
-      setLastScrollY(currentScrollY);
-      
-      // Check if phases section is in the middle of the viewport
-      const isInView = rect.top <= windowHeight / 2 && rect.bottom >= windowHeight / 2;
-      
-      if (isInView && !isPhasesSectionActive) {
-        setIsPhasesSectionActive(true);
-        // Prevent vertical scrolling when phases section is active
-        document.body.style.overflow = 'hidden';
-      } else if (!isInView && isPhasesSectionActive) {
-        setIsPhasesSectionActive(false);
-        // Re-enable vertical scrolling
-        document.body.style.overflow = 'auto';
-      }
-
-      if (isPhasesSectionActive) {
-        // Calculate smooth scroll progress within the phases section
-        let rawProgress;
-        
-        if (scrollDirection === 'down') {
-          // Scrolling down: move phases from right to left
-          rawProgress = Math.max(0, Math.min(1, 
-            (windowHeight / 2 - rect.top) / (sectionHeight + windowHeight)
-          ));
-        } else {
-          // Scrolling up: move phases from left to right (reverse)
-          rawProgress = Math.max(0, Math.min(1, 
-            (rect.bottom - windowHeight / 2) / (sectionHeight + windowHeight)
-          ));
-        }
-        
-        // Apply smooth easing for GSAP-like feel
-        const easedProgress = easeOutCubic(rawProgress);
-        setScrollProgress(easedProgress);
-        
-        // Map scroll progress to phase index (0-3) for horizontal movement
-        const newPhase = Math.floor(easedProgress * 4);
-        setCurrentPhase(Math.min(3, Math.max(0, newPhase)));
-      }
-    };
-
-    // Use requestAnimationFrame for smoother performance
-    let ticking = false;
-    const optimizedHandleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', optimizedHandleScroll, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', optimizedHandleScroll);
-      document.body.style.overflow = 'auto'; // Cleanup
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-    };
-  }, [isPhasesSectionActive, scrollDirection, lastScrollY]);
-
-  // Update phases container transform is handled by the style attribute
 
   return (
     <Layout>
@@ -392,7 +272,7 @@ export default function Home() {
       </section>
 
       {/* Showreel Section */}
-      <section className="pt-20 bg-dark-highlighted">
+      <section className="py-20 bg-dark-highlighted">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-heading">2024 Showreel</h2>
           <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
@@ -428,11 +308,11 @@ export default function Home() {
                 >
                   {isPlaying ? (
                     <svg className="w-8 h-8 text-dark-main" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                      <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
                     </svg>
                   ) : (
                     <svg className="w-8 h-8 text-dark-main ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"/>
+                      <path d="M8 5v14l11-7z" />
                     </svg>
                   )}
                 </button>
@@ -446,11 +326,11 @@ export default function Home() {
                 >
                   {isFullscreen ? (
                     <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>
+                      <path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z" />
                     </svg>
                   ) : (
                     <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                      <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z" />
                     </svg>
                   )}
                 </button>
@@ -461,8 +341,23 @@ export default function Home() {
       </section>
 
       {/* Metrics Section */}
-      <section className="py-20 bg-dark-highlighted">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-dark-highlighted relative overflow-hidden">
+        {/* Parallax Background */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url(/images/by-numbers.webp)',
+            backgroundAttachment: 'fixed',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover'
+          }}
+        ></div>
+        
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-dark-highlighted/95"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-heading">By the Numbers</h2>
           </div>
@@ -470,27 +365,27 @@ export default function Home() {
           {/* First row - 4 metrics */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 mb-8">
             {/* 300+ Successful projects completed */}
-            <div className="bg-transparent hover:bg-coral-primaries/20 transition-all duration-300 px-4 text-center border-l border-gray-600 border-opacity-30 flex flex-col items-start justify-center">
+            <div className="bg-dark-main/70 backdrop-blur-sm hover:bg-coral-primaries/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
               <div className="text-4xl md:text-5xl font-bold text-white mb-6 mt-8">
                 <span className="text-white">$500</span><span className="text-coral-primary">M+</span>
               </div>
-              <div className="text-md text-gray-300 text-left pb-4">Raised by Our Clients</div>
+              <div className="text-md text-gray-200 text-left pb-4">Raised by Our Clients</div>
             </div>
 
             {/* 10+ Years of experience */}
-            <div className="bg-transparent hover:bg-coral-primaries/20 transition-all duration-300 px-4 text-center border-l border-gray-600 border-opacity-30 flex flex-col items-start justify-center">
+            <div className="bg-dark-main/70 backdrop-blur-sm hover:bg-coral-primaries/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
               <div className="text-4xl md:text-5xl font-bold text-white mb-6 mt-8">
                 <span className="text-white">30</span><span className="text-coral-primary">+</span>
               </div>
-              <div className="text-md text-gray-300 text-left pb-4">Successful Rounds of Funding</div>
+              <div className="text-md text-gray-200 text-left pb-4">Successful Rounds of Funding</div>
             </div>
 
             {/* 99% Customer satisfaction */}
-            <div className="bg-transparent hover:bg-coral-primaries/20 transition-all duration-300 px-4 text-center border-l border-gray-600 border-opacity-30 flex flex-col items-start justify-center">
+            <div className="bg-dark-main/70 backdrop-blur-sm hover:bg-coral-primaries/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
               <div className="text-4xl md:text-5xl font-bold text-white mb-6 mt-8">
                 <span className="text-white">70</span><span className="text-coral-primary">+</span>
               </div>
-              <div className="text-md text-gray-300 text-left pb-4">Biopharma Clients Served</div>
+              <div className="text-md text-gray-200 text-left pb-4">Biopharma Clients Served</div>
             </div>
 
           </div>
@@ -499,33 +394,33 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
 
             {/* 25M Client revenue growth */}
-            <div className="bg-transparent hover:bg-coral-primaries/20 transition-all duration-300 px-4 text-center border-l border-gray-600 border-opacity-30 flex flex-col items-start justify-center">
+            <div className="bg-dark-main/70 backdrop-blur-sm hover:bg-coral-primaries/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
               <div className="text-4xl md:text-5xl font-bold text-white mb-6 mt-8">
                 <span className="text-white">100</span><span className="text-coral-primary">+</span>
               </div>
-              <div className="text-md text-gray-300 text-left pb-4">Molecular & Cellular Mechanisms Visualized</div>
+              <div className="text-md text-gray-200 text-left pb-4">Molecular & Cellular Mechanisms Visualized</div>
             </div>
 
 
             {/* Additional metric 2 */}
-            <div className="bg-transparent hover:bg-coral-primaries/20 transition-all duration-300 px-4 text-center border-l border-gray-600 border-opacity-30 flex flex-col items-start justify-center">
+            <div className="bg-dark-main/70 backdrop-blur-sm hover:bg-coral-primaries/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
               <div className="text-4xl md:text-5xl font-bold text-white mb-6 mt-8">
                 <span className="text-white">1</span>&nbsp;<span className="text-coral-primary">in</span>&nbsp;<span className="text-white">4</span>
               </div>
-              <div className="text-md text-gray-300 text-left pb-4">Clients Return for Additional Projects</div>
+              <div className="text-md text-gray-200 text-left pb-4">Clients Return for Additional Projects</div>
             </div>
             
             {/* Additional metric 1 */}
-            <div className="bg-transparent hover:bg-coral-primaries/20 transition-all duration-300 px-4 text-center border-l border-gray-600 border-opacity-30 flex flex-col items-start justify-center">
+            <div className="bg-dark-main/70 backdrop-blur-sm hover:bg-coral-primaries/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
               <div className="text-4xl md:text-5xl font-bold text-white mb-6 mt-8">
                 <span className="text-white">10</span><span className="text-coral-primary">+</span>
               </div>
-              <div className="text-md text-gray-300 text-left pb-4">Years of Operation</div>
+              <div className="text-md text-gray-200 text-left pb-4">Years of Operation</div>
             </div>
           </div>
 
 
-          <p className="text-center text-xl text-gray-300 italic mt-12">The track record your breakthrough deserves.</p>
+          <p className="text-center text-xl text-gray-100 italic mt-12 font-medium">The track record your breakthrough deserves.</p>
         </div>
       </section>
 
@@ -599,8 +494,7 @@ export default function Home() {
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                    index === currentSlide 
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentSlide
                       ? 'bg-coral-primary scale-125' 
                       : 'bg-white/30 hover:bg-white/50'
                   }`}
@@ -741,187 +635,96 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Process Section */}
-      <section className="py-20 bg-dark-main">
+      {/* Process Section - Responsive Layout */}
+      {/* Desktop - Phase Slider */}
+      <PhaseSlider />
+
+      {/* Mobile - Simple Vertical Column */}
+      <section className="md:hidden pt-20 bg-dark-main">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-heading">A Simple 5-Phase System</h2>
+            <h2 className="text-4xl font-bold text-white mb-6 font-heading">A Simple 5-Phase System</h2>
           </div>
 
-          <div className="space-y-8">
-            <div className="bg-pink-primary/5 border-l-4 border-pink-primary p-8 rounded-r-xl">
-              <h3 className="text-2xl font-bold text-pink-primary mb-4 font-heading">Phase 1: Strategy & Storyboard</h3>
-              <p className="text-gray-300 leading-relaxed">
+          <div className="flex flex-col space-y-8">
+            {/* Phase 1 */}
+            <div className="w-full h-[480px] flex-shrink-0 flex flex-col p-8 border border-white/10 hover:border-t-coral-primary hover:border-t-8 transition-all duration-300">
+              <div className="flex items-center justify-start mb-8">
+                <span className="text-1xl md:text-2xl font-bold text-white/50">PHASE 1</span>
+                <div className="w-4 h-4 bg-coral-primary ml-4"></div>
+              </div>
+              <div className="flex-1 gap-4 flex flex-col justify-end h-full">
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">Strategy & Storyboard</h3>
+                <div className="text-xl text-white/50 leading-7 min-h-[200px]">
                 We start with a deep dive into your science, developing a script and visual storyboard. You approve the complete strategic and narrative plan before anything is built.
-              </p>
+                </div>
+              </div>
             </div>
 
-            <div className="bg-pink-primary/5 border-l-4 border-pink-primary p-8 rounded-r-xl">
-              <h3 className="text-2xl font-bold text-pink-primary mb-4 font-heading">Phase 2: Design & Animatic</h3>
-              <p className="text-gray-300 leading-relaxed">
+            {/* Phase 2 */}
+            <div className="w-full h-[480px] flex-shrink-0 flex flex-col p-8 border border-white/10 hover:border-t-coral-primary hover:border-t-8 transition-all duration-300">
+              <div className="flex items-center justify-start mb-8">
+                <span className="text-1xl md:text-2xl font-bold text-white/50">PHASE 2</span>
+                <div className="w-4 h-4 bg-coral-primary ml-4"></div>
+              </div>
+              <div className="flex-1 gap-4 flex flex-col justify-end h-full">
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">Design & Animatic</h3>
+                <div className="text-xl text-white/50 leading-7 min-h-[200px]">
                 Next, we define the visual universe for your project. You approve the final look and feel with Style Frames and the precise timing with an Animatic, ensuring perfect alignment before production begins.
-              </p>
+                </div>
+              </div>
             </div>
 
-            <div className="bg-pink-primary/5 border-l-4 border-pink-primary p-8 rounded-r-xl">
-              <h3 className="text-2xl font-bold text-pink-primary mb-4 font-heading">Phase 3: Production & Post-Production</h3>
-              <p className="text-gray-300 leading-relaxed">
+            {/* Phase 3 */}
+            <div className="w-full h-[480px] flex-shrink-0 flex flex-col p-8 border border-white/10 hover:border-t-coral-primary hover:border-t-8 transition-all duration-300">
+              <div className="flex items-center justify-start mb-8">
+                <span className="text-1xl md:text-2xl font-bold text-white/50">PHASE 3</span>
+                <div className="w-4 h-4 bg-coral-primary ml-4"></div>
+              </div>
+              <div className="flex-1 gap-4 flex flex-col justify-end h-full">
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">Production &<br /> Post-Production</h3>
+                <div className="text-xl text-white/50 leading-7 min-h-[200px]">
                 With the blueprint approved, our dedicated team of scientific experts brings the vision to life through 3D modeling, animation, and cinematic post-production.
-              </p>
+                </div>
+              </div>
             </div>
 
-            <div className="bg-pink-primary/5 border-l-4 border-pink-primary p-8 rounded-r-xl">
-              <h3 className="text-2xl font-bold text-pink-primary mb-4 font-heading">Phase 4: Final Delivery</h3>
-              <p className="text-gray-300 leading-relaxed">
+            {/* Phase 4 */}
+            <div className="w-full h-[480px] flex-shrink-0 flex flex-col p-8 border border-white/10 hover:border-t-coral-primary hover:border-t-8 transition-all duration-300">
+              <div className="flex items-center justify-start mb-8">
+                <span className="text-1xl md:text-2xl font-bold text-white/50">PHASE 4</span>
+                <div className="w-4 h-4 bg-coral-primary ml-4"></div>
+              </div>
+              <div className="flex-1 gap-4 flex flex-col justify-end h-full">
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">Final Delivery</h3>
+                <div className="text-xl text-white/50 leading-7 min-h-[200px]">
                 You receive the final, high-resolution visualization, ready for your investor meeting, conference presentation, or website launch.
-              </p>
+                </div>
+              </div>
             </div>
 
-            <div className="bg-pink-primary/5 border-l-4 border-pink-primary p-8 rounded-r-xl">
-              <h3 className="text-2xl font-bold text-pink-primary mb-4 font-heading">Phase 5: Strategic Deployment</h3>
-              <p className="text-gray-300 leading-relaxed">
+            {/* Phase 5 */}
+            <div className="w-full h-[480px] flex-shrink-0 flex flex-col p-8 border border-white/10 hover:border-t-coral-primary hover:border-t-8 transition-all duration-300">
+              <div className="flex items-center justify-start mb-8">
+                <span className="text-1xl md:text-2xl font-bold text-white/50">PHASE 5</span>
+                <div className="w-4 h-4 bg-coral-primary ml-4"></div>
+              </div>
+              <div className="flex-1 gap-4 flex flex-col justify-end h-full">
+                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">Strategic Deployment</h3>
+                <div className="text-xl text-white/50 leading-7 min-h-[200px]">
                 Finally, we activate your new asset. The same scientific experts who built your visualization work directly with your team to guide its strategic deployment, maximizing its value long after delivery.
-              </p>
             </div>
           </div>
-
-          <p className="text-center text-xl text-gray-300 italic mt-12">
-            A process designed for total clarity, giving you a transparent, real-time view of your project's progress.
-          </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* How We Work - Phases Section */}
-      <section ref={phasesSectionRef} className="py-20 bg-dark-main">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-heading">HOW WE WORK</h2>
-            <p className="text-xl text-gray-300">(PROCESS)</p>
-          </div>
-
-          {/* Horizontal Scrolling Container */}
-          <div className="relative overflow-hidden">
-            <div 
-              ref={phasesContainerRef}
-              className="flex"
-              style={{ 
-                transform: scrollDirection === 'down' 
-                  ? `translateX(-${scrollProgress * 75}%)`
-                  : `translateX(-${(1 - scrollProgress) * 75}%)`,
-                transition: 'transform 0.1s ease-out'
-              }}
-            >
-              {/* Step 1 */}
-              <div className="w-1/4 flex-shrink-0 px-4">
-                <div className="text-center transition-all duration-500 ease-out"
-                     style={{ 
-                       opacity: (scrollDirection === 'down' && scrollProgress < 0.25) || 
-                               (scrollDirection === 'up' && scrollProgress > 0.75) ? 1 : 0.7,
-                       transform: `scale(${(scrollDirection === 'down' && scrollProgress < 0.25) || 
-                                         (scrollDirection === 'up' && scrollProgress > 0.75) ? 1 : 0.95})`
-                     }}>
-                  <div className="flex items-center justify-center mb-8">
-                    <span className="text-4xl font-bold text-white mr-4">STEP 1</span>
-                    <div className="w-3 h-3 bg-red-500 transition-all duration-300"
-                         style={{ 
-                           transform: `scale(${(scrollDirection === 'down' && scrollProgress < 0.25) || 
-                                             (scrollDirection === 'up' && scrollProgress > 0.75) ? 1.2 : 1})`,
-                           boxShadow: (scrollDirection === 'down' && scrollProgress < 0.25) || 
-                                      (scrollDirection === 'up' && scrollProgress > 0.75) ? 
-                                      '0 0 20px rgba(239, 68, 68, 0.5)' : 'none'
-                         }}></div>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-4 font-heading">Discovery Phase</h3>
-                  <p className="text-lg text-gray-300 leading-relaxed">
-                    Understanding your goals, pain points, audience, and what sets you apart.
-                  </p>
-                </div>
-              </div>
-
-              {/* Step 2 */}
-              <div className="w-1/4 flex-shrink-0 px-4">
-                <div className="text-center transition-all duration-500 ease-out"
-                     style={{ 
-                       opacity: (scrollDirection === 'down' && scrollProgress >= 0.25 && scrollProgress < 0.5) || 
-                               (scrollDirection === 'up' && scrollProgress >= 0.5 && scrollProgress < 0.75) ? 1 : 0.7,
-                       transform: `scale(${(scrollDirection === 'down' && scrollProgress >= 0.25 && scrollProgress < 0.5) || 
-                                         (scrollDirection === 'up' && scrollProgress >= 0.5 && scrollProgress < 0.75) ? 1 : 0.95})`
-                     }}>
-                  <div className="flex items-center justify-center mb-8">
-                    <span className="text-4xl font-bold text-white mr-4">STEP 2</span>
-                    <div className="w-3 h-3 bg-red-500 transition-all duration-300"
-                         style={{ 
-                           transform: `scale(${(scrollDirection === 'down' && scrollProgress >= 0.25 && scrollProgress < 0.5) || 
-                                             (scrollDirection === 'up' && scrollProgress >= 0.5 && scrollProgress < 0.75) ? 1.2 : 1})`,
-                           boxShadow: (scrollDirection === 'down' && scrollProgress >= 0.25 && scrollProgress < 0.5) || 
-                                      (scrollDirection === 'up' && scrollProgress >= 0.5 && scrollProgress < 0.75) ? 
-                                      '0 0 20px rgba(239, 68, 68, 0.5)' : 'none'
-                         }}></div>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-4 font-heading">Project Kickoff</h3>
-                  <p className="text-lg text-gray-300 leading-relaxed">
-                    Setting up projects, aligning on scope and milestones, and diving into the work.
-                  </p>
-                </div>
-              </div>
-
-              {/* Step 3 */}
-              <div className="w-1/4 flex-shrink-0 px-4">
-                <div className="text-center transition-all duration-500 ease-out"
-                     style={{ 
-                       opacity: (scrollDirection === 'down' && scrollProgress >= 0.5 && scrollProgress < 0.75) || 
-                               (scrollDirection === 'up' && scrollProgress >= 0.25 && scrollProgress < 0.5) ? 1 : 0.7,
-                       transform: `scale(${(scrollDirection === 'down' && scrollProgress >= 0.5 && scrollProgress < 0.75) || 
-                                         (scrollDirection === 'up' && scrollProgress >= 0.25 && scrollProgress < 0.5) ? 1 : 0.95})`
-                     }}>
-                  <div className="flex items-center justify-center mb-8">
-                    <span className="text-4xl font-bold text-white mr-4">STEP 3</span>
-                    <div className="w-3 h-3 bg-red-500 transition-all duration-300"
-                         style={{ 
-                           transform: `scale(${(scrollDirection === 'down' && scrollProgress >= 0.5 && scrollProgress < 0.75) || 
-                                             (scrollDirection === 'up' && scrollProgress >= 0.25 && scrollProgress < 0.5) ? 1.2 : 1})`,
-                           boxShadow: (scrollDirection === 'down' && scrollProgress >= 0.5 && scrollProgress < 0.75) || 
-                                      (scrollDirection === 'up' && scrollProgress >= 0.25 && scrollProgress < 0.5) ? 
-                                      '0 0 20px rgba(239, 68, 68, 0.5)' : 'none'
-                         }}></div>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-4 font-heading">Receive & Refine</h3>
-                  <p className="text-lg text-gray-300 leading-relaxed">
-                    Sharing initial designs, gathering feedback, and fine-tuning together.
-                  </p>
-                </div>
-              </div>
-
-
-              {/* Step 4 */}
-              <div className="w-1/4 flex-shrink-0 px-4">
-                <div className="text-center transition-all duration-500 ease-out"
-                     style={{ 
-                       opacity: (scrollDirection === 'down' && scrollProgress >= 0.75) || 
-                               (scrollDirection === 'up' && scrollProgress < 0.25) ? 1 : 0.7,
-                       transform: `scale(${(scrollDirection === 'down' && scrollProgress >= 0.75) || 
-                                         (scrollDirection === 'up' && scrollProgress < 0.25) ? 1 : 0.95})`
-                     }}>
-                  <div className="flex items-center justify-center mb-8">
-                    <span className="text-4xl font-bold text-white mr-4">STEP 4</span>
-                    <div className="w-3 h-3 bg-red-500 transition-all duration-300"
-                         style={{ 
-                           transform: `scale(${(scrollDirection === 'down' && scrollProgress >= 0.75) || 
-                                             (scrollDirection === 'up' && scrollProgress < 0.25) ? 1.2 : 1})`,
-                           boxShadow: (scrollDirection === 'down' && scrollProgress >= 0.75) || 
-                                      (scrollDirection === 'up' && scrollProgress < 0.25) ? 
-                                      '0 0 20px rgba(239, 68, 68, 0.5)' : 'none'
-                         }}></div>
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-4 font-heading">Continue Grow</h3>
-                  <p className="text-lg text-gray-300 leading-relaxed">
-                    Launching with confidence and supporting your extraordinary moves.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+      <section className="bg-dark-main py-16">
+        <div className="text-center font-heading text-xl text-gray-300 italic">
+          A process designed for total clarity,<br className='md:hidden block'/> giving you a transparent, <br className='md:hidden block'/>real-time view of your project's progress.
         </div>
+        <div className='w-48 mt-2 h-1 bg-coral-primary mx-auto'></div>
       </section>
 
       {/* Security Section */}

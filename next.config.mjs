@@ -1,3 +1,5 @@
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
@@ -8,7 +10,6 @@ const nextConfig = {
   webpack: (config, { dev, isServer }) => {
     // Handle CSS extraction properly
     if (!dev && !isServer) {
-      const MiniCssExtractPlugin = require('mini-css-extract-plugin');
       
       // Find and replace the existing CSS rule
       const cssRule = config.module.rules.find(rule => 

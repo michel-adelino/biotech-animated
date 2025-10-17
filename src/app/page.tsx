@@ -523,7 +523,7 @@ export default function Home() {
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start cursor-pointer">
                 <div className="w-full h-full rounded-l-xl mx-auto lg:mx-0 overflow-hidden">
                   <img
-                    src="/images/team/ksenia.jpg"
+                    src="/images/team/Ksenia.jpg"
                     alt="Ksenia Timonina, PhD"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />

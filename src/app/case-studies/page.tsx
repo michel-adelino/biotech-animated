@@ -58,8 +58,8 @@ export default function CaseStudies() {
 
     const counterObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting && !entry.target.dataset.animated) {
-          entry.target.dataset.animated = 'true';
+        if (entry.isIntersecting && !(entry.target as HTMLElement).getAttribute('data-animated')) {
+          entry.target.setAttribute('data-animated', 'true');
           animateCounter(entry.target as HTMLElement);
         }
       });

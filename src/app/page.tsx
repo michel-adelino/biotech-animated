@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Layout from '../components/Layout/Layout';
 import AnimatedButton from '../components/Button';
 import FloatingLogs from '../components/FloatingLogs';
@@ -105,7 +105,15 @@ export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentPhase, setCurrentPhase] = useState(0);
+  const [isPhasesSectionActive, setIsPhasesSectionActive] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [scrollDirection, setScrollDirection] = useState<'down' | 'up'>('down');
+  const [lastScrollY, setLastScrollY] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const phasesSectionRef = useRef<HTMLDivElement>(null);
+  const phasesContainerRef = useRef<HTMLDivElement>(null);
+  const animationFrameRef = useRef<number>();
 
   const handleShowReel = () => {
     setIsVideoModalOpen(true);
@@ -149,6 +157,120 @@ export default function Home() {
     const maxSlide = Math.ceil(testimonials.length / 6) - 1;
     setCurrentSlide((prev) => (prev > 0 ? prev - 1 : maxSlide));
   };
+
+  // GSAP-style easing functions
+  const easeOutCubic = (t: number): number => 1 - Math.pow(1 - t, 3);
+  const easeInOutCubic = (t: number): number => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const easeOutQuart = (t: number): number => 1 - Math.pow(1 - t, 4);
+
+  // Smooth animation function similar to GSAP
+  const animateToPhase = (targetPhase: number) => {
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+
+    const startPhase = currentPhase;
+    const startTime = performance.now();
+    const duration = 1000; // 1 second animation
+
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Apply easing
+      const easedProgress = easeOutCubic(progress);
+      const newPhase = startPhase + (targetPhase - startPhase) * easedProgress;
+      
+      setCurrentPhase(newPhase);
+      
+      if (progress < 1) {
+        animationFrameRef.current = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrameRef.current = requestAnimationFrame(animate);
+  };
+
+  // Bidirectional GSAP-style horizontal scroll animation for phases section
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!phasesSectionRef.current) return;
+
+      const currentScrollY = window.scrollY;
+      const rect = phasesSectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const sectionHeight = rect.height;
+      
+      // Detect scroll direction
+      if (currentScrollY > lastScrollY) {
+        setScrollDirection('down');
+      } else if (currentScrollY < lastScrollY) {
+        setScrollDirection('up');
+      }
+      setLastScrollY(currentScrollY);
+      
+      // Check if phases section is in the middle of the viewport
+      const isInView = rect.top <= windowHeight / 2 && rect.bottom >= windowHeight / 2;
+      
+      if (isInView && !isPhasesSectionActive) {
+        setIsPhasesSectionActive(true);
+        // Prevent vertical scrolling when phases section is active
+        document.body.style.overflow = 'hidden';
+      } else if (!isInView && isPhasesSectionActive) {
+        setIsPhasesSectionActive(false);
+        // Re-enable vertical scrolling
+        document.body.style.overflow = 'auto';
+      }
+
+      if (isPhasesSectionActive) {
+        // Calculate smooth scroll progress within the phases section
+        let rawProgress;
+        
+        if (scrollDirection === 'down') {
+          // Scrolling down: move phases from right to left
+          rawProgress = Math.max(0, Math.min(1, 
+            (windowHeight / 2 - rect.top) / (sectionHeight + windowHeight)
+          ));
+        } else {
+          // Scrolling up: move phases from left to right (reverse)
+          rawProgress = Math.max(0, Math.min(1, 
+            (rect.bottom - windowHeight / 2) / (sectionHeight + windowHeight)
+          ));
+        }
+        
+        // Apply smooth easing for GSAP-like feel
+        const easedProgress = easeOutCubic(rawProgress);
+        setScrollProgress(easedProgress);
+        
+        // Map scroll progress to phase index (0-3) for horizontal movement
+        const newPhase = Math.floor(easedProgress * 4);
+        setCurrentPhase(Math.min(3, Math.max(0, newPhase)));
+      }
+    };
+
+    // Use requestAnimationFrame for smoother performance
+    let ticking = false;
+    const optimizedHandleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', optimizedHandleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', optimizedHandleScroll);
+      document.body.style.overflow = 'auto'; // Cleanup
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [isPhasesSectionActive, scrollDirection, lastScrollY]);
+
+  // Update phases container transform is handled by the style attribute
 
   return (
     <Layout>
@@ -666,6 +788,139 @@ export default function Home() {
           <p className="text-center text-xl text-gray-300 italic mt-12">
             A process designed for total clarity, giving you a transparent, real-time view of your project's progress.
           </p>
+        </div>
+      </section>
+
+      {/* How We Work - Phases Section */}
+      <section ref={phasesSectionRef} className="py-20 bg-dark-main">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-heading">HOW WE WORK</h2>
+            <p className="text-xl text-gray-300">(PROCESS)</p>
+          </div>
+
+          {/* Horizontal Scrolling Container */}
+          <div className="relative overflow-hidden">
+            <div 
+              ref={phasesContainerRef}
+              className="flex"
+              style={{ 
+                transform: scrollDirection === 'down' 
+                  ? `translateX(-${scrollProgress * 75}%)`
+                  : `translateX(-${(1 - scrollProgress) * 75}%)`,
+                transition: 'transform 0.1s ease-out'
+              }}
+            >
+              {/* Step 1 */}
+              <div className="w-1/4 flex-shrink-0 px-4">
+                <div className="text-center transition-all duration-500 ease-out"
+                     style={{ 
+                       opacity: (scrollDirection === 'down' && scrollProgress < 0.25) || 
+                               (scrollDirection === 'up' && scrollProgress > 0.75) ? 1 : 0.7,
+                       transform: `scale(${(scrollDirection === 'down' && scrollProgress < 0.25) || 
+                                         (scrollDirection === 'up' && scrollProgress > 0.75) ? 1 : 0.95})`
+                     }}>
+                  <div className="flex items-center justify-center mb-8">
+                    <span className="text-4xl font-bold text-white mr-4">STEP 1</span>
+                    <div className="w-3 h-3 bg-red-500 transition-all duration-300"
+                         style={{ 
+                           transform: `scale(${(scrollDirection === 'down' && scrollProgress < 0.25) || 
+                                             (scrollDirection === 'up' && scrollProgress > 0.75) ? 1.2 : 1})`,
+                           boxShadow: (scrollDirection === 'down' && scrollProgress < 0.25) || 
+                                      (scrollDirection === 'up' && scrollProgress > 0.75) ? 
+                                      '0 0 20px rgba(239, 68, 68, 0.5)' : 'none'
+                         }}></div>
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4 font-heading">Discovery Phase</h3>
+                  <p className="text-lg text-gray-300 leading-relaxed">
+                    Understanding your goals, pain points, audience, and what sets you apart.
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div className="w-1/4 flex-shrink-0 px-4">
+                <div className="text-center transition-all duration-500 ease-out"
+                     style={{ 
+                       opacity: (scrollDirection === 'down' && scrollProgress >= 0.25 && scrollProgress < 0.5) || 
+                               (scrollDirection === 'up' && scrollProgress >= 0.5 && scrollProgress < 0.75) ? 1 : 0.7,
+                       transform: `scale(${(scrollDirection === 'down' && scrollProgress >= 0.25 && scrollProgress < 0.5) || 
+                                         (scrollDirection === 'up' && scrollProgress >= 0.5 && scrollProgress < 0.75) ? 1 : 0.95})`
+                     }}>
+                  <div className="flex items-center justify-center mb-8">
+                    <span className="text-4xl font-bold text-white mr-4">STEP 2</span>
+                    <div className="w-3 h-3 bg-red-500 transition-all duration-300"
+                         style={{ 
+                           transform: `scale(${(scrollDirection === 'down' && scrollProgress >= 0.25 && scrollProgress < 0.5) || 
+                                             (scrollDirection === 'up' && scrollProgress >= 0.5 && scrollProgress < 0.75) ? 1.2 : 1})`,
+                           boxShadow: (scrollDirection === 'down' && scrollProgress >= 0.25 && scrollProgress < 0.5) || 
+                                      (scrollDirection === 'up' && scrollProgress >= 0.5 && scrollProgress < 0.75) ? 
+                                      '0 0 20px rgba(239, 68, 68, 0.5)' : 'none'
+                         }}></div>
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4 font-heading">Project Kickoff</h3>
+                  <p className="text-lg text-gray-300 leading-relaxed">
+                    Setting up projects, aligning on scope and milestones, and diving into the work.
+                  </p>
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div className="w-1/4 flex-shrink-0 px-4">
+                <div className="text-center transition-all duration-500 ease-out"
+                     style={{ 
+                       opacity: (scrollDirection === 'down' && scrollProgress >= 0.5 && scrollProgress < 0.75) || 
+                               (scrollDirection === 'up' && scrollProgress >= 0.25 && scrollProgress < 0.5) ? 1 : 0.7,
+                       transform: `scale(${(scrollDirection === 'down' && scrollProgress >= 0.5 && scrollProgress < 0.75) || 
+                                         (scrollDirection === 'up' && scrollProgress >= 0.25 && scrollProgress < 0.5) ? 1 : 0.95})`
+                     }}>
+                  <div className="flex items-center justify-center mb-8">
+                    <span className="text-4xl font-bold text-white mr-4">STEP 3</span>
+                    <div className="w-3 h-3 bg-red-500 transition-all duration-300"
+                         style={{ 
+                           transform: `scale(${(scrollDirection === 'down' && scrollProgress >= 0.5 && scrollProgress < 0.75) || 
+                                             (scrollDirection === 'up' && scrollProgress >= 0.25 && scrollProgress < 0.5) ? 1.2 : 1})`,
+                           boxShadow: (scrollDirection === 'down' && scrollProgress >= 0.5 && scrollProgress < 0.75) || 
+                                      (scrollDirection === 'up' && scrollProgress >= 0.25 && scrollProgress < 0.5) ? 
+                                      '0 0 20px rgba(239, 68, 68, 0.5)' : 'none'
+                         }}></div>
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4 font-heading">Receive & Refine</h3>
+                  <p className="text-lg text-gray-300 leading-relaxed">
+                    Sharing initial designs, gathering feedback, and fine-tuning together.
+                  </p>
+                </div>
+              </div>
+
+
+              {/* Step 4 */}
+              <div className="w-1/4 flex-shrink-0 px-4">
+                <div className="text-center transition-all duration-500 ease-out"
+                     style={{ 
+                       opacity: (scrollDirection === 'down' && scrollProgress >= 0.75) || 
+                               (scrollDirection === 'up' && scrollProgress < 0.25) ? 1 : 0.7,
+                       transform: `scale(${(scrollDirection === 'down' && scrollProgress >= 0.75) || 
+                                         (scrollDirection === 'up' && scrollProgress < 0.25) ? 1 : 0.95})`
+                     }}>
+                  <div className="flex items-center justify-center mb-8">
+                    <span className="text-4xl font-bold text-white mr-4">STEP 4</span>
+                    <div className="w-3 h-3 bg-red-500 transition-all duration-300"
+                         style={{ 
+                           transform: `scale(${(scrollDirection === 'down' && scrollProgress >= 0.75) || 
+                                             (scrollDirection === 'up' && scrollProgress < 0.25) ? 1.2 : 1})`,
+                           boxShadow: (scrollDirection === 'down' && scrollProgress >= 0.75) || 
+                                      (scrollDirection === 'up' && scrollProgress < 0.25) ? 
+                                      '0 0 20px rgba(239, 68, 68, 0.5)' : 'none'
+                         }}></div>
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4 font-heading">Continue Grow</h3>
+                  <p className="text-lg text-gray-300 leading-relaxed">
+                    Launching with confidence and supporting your extraordinary moves.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

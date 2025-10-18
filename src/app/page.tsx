@@ -413,7 +413,7 @@ export default function Home() {
         </div>
         
         {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-gray-950/40"></div>
+        <div className="absolute inset-0 bg-gray-950/20"></div>
       </section>
 
       {/* Testimonials Section */}

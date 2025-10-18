@@ -345,12 +345,10 @@ export default function Home() {
           }}
         ></div>
 
-        {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-gray-850/95"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-h2 font-display text-gray-200 mb-6">By the Numbers</h2>
+            <h2 className="text-h2 font-display text-white mb-6">By the Numbers</h2>
           </div>
 
           {/* First row - 4 metrics */}
@@ -413,6 +411,9 @@ export default function Home() {
 
           <p className="text-center text-body-lg text-gray-300 italic mt-12 font-medium font-text">The track record your breakthrough deserves.</p>
         </div>
+        
+        {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-gray-950/40"></div>
       </section>
 
       {/* Testimonials Section */}

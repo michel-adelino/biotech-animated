@@ -1,29 +1,29 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import { Anton } from "next/font/google";
+import { Red_Hat_Display, Red_Hat_Text, Red_Hat_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const redHatDisplay = Red_Hat_Display({
+  weight: ["300", "400", "500"],
+  variable: "--font-display",
+  subsets: ["latin"],
 });
 
-const anton = Anton({
-  weight: "400",
-  variable: "--font-anton",
+const redHatText = Red_Hat_Text({
+  weight: ["300", "400", "500"],
+  variable: "--font-text",
+  subsets: ["latin"],
+});
+
+const redHatMono = Red_Hat_Mono({
+  weight: ["300", "400", "500"],
+  variable: "--font-mono",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Biotech Animated",
-  description: "Modern biotech solutions with cutting-edge technology",
-  themeColor: "#161719",
+  title: "Biomol Visual",
+  description: "Molecular & Cellular MOA Visualization That Gets You Funded",
+  themeColor: "#121212",
 };
 
 export default function RootLayout({
@@ -34,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${anton.variable} antialiased`}
+        className={`${redHatDisplay.variable} ${redHatText.variable} ${redHatMono.variable} antialiased`}
       >
         {children}
       </body>

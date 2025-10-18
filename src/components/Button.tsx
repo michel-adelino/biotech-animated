@@ -76,16 +76,16 @@ const Button: React.FC<ButtonProps> = ({
   // - Text is kept on single line with whitespace-nowrap to prevent layout issues
   // - Button width automatically adjusts to fit text content (min-w-fit)
   const buttonVariants = {
-    primary: 'bg-pink-primary text-white hover:bg-pink-primary/90',
-    secondary: 'bg-secondary text-white hover:bg-secondary/90',
-    outline: 'border-2 border-pink-primary text-pink-primary hover:bg-pink-primary hover:text-white',
-    ghost: 'text-pink-primary hover:bg-pink-primary/10',
+    primary: 'bg-orange-500 text-white hover:bg-orange-400 font-display font-medium',
+    secondary: 'bg-purple-500 text-white hover:bg-purple-400 font-display font-medium',
+    outline: 'border-2 border-purple-500 text-purple-500 hover:bg-purple-500 hover:text-white font-display font-medium',
+    ghost: 'text-purple-500 hover:bg-purple-500/10 font-display font-medium',
   };
 
   const sizeVariants = {
-    sm: 'px-4 py-2 text-sm min-h-[2.5rem] min-w-fit',
-    md: 'px-6 py-3 text-base min-h-[3rem] min-w-fit',
-    lg: 'px-8 py-4 text-lg min-h-[3.5rem] min-w-fit',
+    sm: 'px-4 py-2 text-small min-h-[2.5rem] min-w-fit',
+    md: 'px-6 py-3 text-body min-h-[3rem] min-w-fit',
+    lg: 'px-8 py-4 text-body-lg min-h-[3.5rem] min-w-fit',
   };
 
   return (
@@ -95,7 +95,7 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       className={cn(
         // Base styles
-        'group relative overflow-hidden rounded-full font-medium transition-all duration-300 ease-in-out',
+        'group relative overflow-hidden rounded-lg font-medium transition-all duration-300 ease-in-out',
         'transform inline-flex items-center justify-center',
         'disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100',
         

@@ -158,7 +158,7 @@ export default function Home() {
     <Layout>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-end overflow-hidden">
+      <section className="relative min-h-screen flex flex-col overflow-hidden">
         {/* Video Background */}
         <video
           autoPlay
@@ -172,25 +172,20 @@ export default function Home() {
         </video>
 
         {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-dark-highlighted/80 via-dark-main/70 to-dark-highlighted/80 z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/80 via-gray-900/70 to-purple-900/80 z-10"></div>
 
         {/* Bottom gradient overlay for smooth transition */}
-        <div className="absolute bottom-0 left-0 right-0 h-[calc(100%-10rem)] bg-gradient-to-t from-dark-main to-transparent z-15"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-[calc(100%-10rem)] bg-gradient-to-t from-gray-900 to-transparent z-15"></div>
 
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-0 lg:px-0 py-20">
-          <div className="max-w-5xl">
-            <h1 className="text-4xl tracking-[0.04rem] md:text-6xl font-bold text-white mb-6 font-heading leading-tight">
+        {/* Main Content */}
+        <div className="relative z-20 mx-auto px-4 pb-5 flex-1 flex items-end">
+          <div className="max-w-6xl mx-auto">
+            <h1 className="text-h1 font-display text-gray-200 mb-6 leading-tight">
               Molecular & Cellular MOA Visualization That Gets You Funded
             </h1>
-            <p className="text-xl text-gray-300 mb-8 max-w-4xl leading-relaxed">
+            <p className="text-body-lg text-gray-300 mb-5 max-w-4xl leading-relaxed font-text">
               We translate your complex molecular science into a 3-minute visual story designed to win investor confidence.
             </p>
-
-            {/* <div className="space-y-4 mb-8">
-              <p className="text-lg text-gray-300">You get PhD-level scientific accuracy without the endless revisions.</p>
-              <p className="text-lg text-gray-300">You get a transparent process with clear timelines and predictable outcomes.</p>
-              <p className="text-lg text-gray-300">You get a powerful asset designed to win investor confidence.</p>
-            </div> */}
 
             <div className="flex flex-col sm:flex-row gap-6">
               <AnimatedButton
@@ -204,43 +199,37 @@ export default function Home() {
                   text="Book Your Strategy Call →"
                   hoverText="30-minute call. 2 mins to book"
                   variant="primary"
-                  className="mb-2 w-72 !bg-coral-primary hover:bg-coral-primary/90"
+                  className="mb-2 w-72"
                 />
-                {/* <p className="text-sm text-gray-400 text-center">30-minute call. No obligation. Takes 2 minutes to book.</p> */}
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Trusted by Companies - Integrated into Hero */}
+        <div className="relative z-20 bg-gray-900/95">
+          <div className="max-w-6xl mx-auto px-4 pb-4">
+            <div className="mb-4">
+              <h2 className="text-h4 font-display text-gray-200 mb-2">Companies we've worked with include</h2>
+            </div>
+            <div className="relative overflow-hidden">
+              <FloatingLogs />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Trusted by Companies */}
-      <section className="py-10 bg-dark-main">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-heading">Trusted by Leading Biotech Companies</h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Over 70 biotech companies have chosen us to visualize their breakthrough science
-            </p>
-          </div> */}
-
-          {/* Logos Carousel */}
-          <div className="relative overflow-hidden">
-            <FloatingLogs />
-          </div>
-        </div>
-      </section>
-
       {/* Differentiation Section */}
-      <section className="py-20 bg-dark-main">
+      <section className="py-20 bg-gray-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Content */}
             <div>
-              <h2 className="text-3xl tracking-[0.04rem] md:text-5xl font-bold text-white mb-8 font-heading">
+              <h2 className="text-h2 font-display text-gray-200 mb-8">
                 We Don't Animate Surgeries. We Visualize Molecular & Cellular Mechanisms of Action.
               </h2>
 
-              <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
+              <div className="space-y-6 text-body-lg text-gray-300 leading-relaxed font-text">
                 <p>Generalist studios animate hip replacements on Monday. A dental procedure on Tuesday. And a new surgical tool on Wednesday. Then they attempt your complex molecular science on Thursday.</p>
 
                 <p>We only do one thing: Visually explain the molecular and cellular science that gets you funded. This singular focus is our advantage.</p>
@@ -262,36 +251,36 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div>
-            <div className="bg-coral-primaries/20 p-6 my-8 rounded-xl">
-              <p className="italic text-lg">"The team understands science and biotech, so communication is direct and effective — no wasting time bringing designers up to speed."</p>
-              <p className="mt-2 font-semibold">— Dr. James Campbell, CEO, Patrys</p>
+          <div className='py-6'>
+            <div className="bg-orange-500/20 rounded-xl border-l-4 border-purple-500 px-4 py-4">
+              <p className="italic text-body-lg font-text">"The team understands science and biotech, so communication is direct and effective — no wasting time bringing designers up to speed."</p>
+              <p className="mt-2 font-medium font-text">— Dr. James Campbell, CEO, Patrys</p>
             </div>
 
-            <p className="font-semibold font-heading text-center text-2xl tracking-[0.04rem]">Just a smarter process. And a more powerful result.</p>
           </div>
+          <p className="font-medium font-display text-center text-h3 text-gray-200">Just a smarter process. And a more powerful result.</p>
         </div>
       </section>
 
       {/* Showreel Section */}
-      <section className="py-20 bg-dark-highlighted">
+      <section className="py-20 bg-gray-850">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-heading">2024 Showreel</h2>
-          <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto">
+          <h2 className="text-h2 font-display text-gray-200 mb-6">2024 Showreel</h2>
+          <p className="text-body-lg text-gray-300 mb-12 max-w-3xl mx-auto font-text">
             Press play to see how we transform complex science into clear, compelling stories that drive results.
           </p>
 
           {/* Modern Video Container */}
           <div className="relative group">
             {/* Video Container with Modern Styling */}
-            <div className="relative w-full aspect-video bg-gradient-to-br from-dark-highlighted via-dark-main to-pink-primary/30 rounded-2xl overflow-hidden shadow-2xl border border-white/10 backdrop-blur-sm">
+            <div className="relative w-full aspect-video bg-gradient-to-br from-gray-850 via-gray-900 to-purple-500/30 rounded-2xl overflow-hidden shadow-2xl border border-white/10 backdrop-blur-sm">
               {/* Animated Background Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-primary/20 via-transparent to-coral-primary/20 animate-pulse"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-transparent to-orange-500/20 animate-pulse"></div>
 
               {/* Video Element - No Native Controls */}
               <video
                 ref={videoRef}
-                className="w-full h-full object-cover relative z-10 transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-cover relative z-10 transition-transform duration-700"
                 poster="/images/4.webp"
                 preload="metadata"
                 onPlay={() => setIsPlaying(true)}
@@ -305,15 +294,15 @@ export default function Home() {
               {/* Custom Play/Pause Button Overlay */}
               <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-all duration-300">
                 <button
-                  className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-2xl transform scale-90 group-hover:scale-100 transition-transform duration-300 hover:bg-white focus:outline-none focus:ring-4 focus:ring-pink-primary/50"
+                  className="w-20 h-20 bg-white/90 rounded-full flex items-center justify-center shadow-2xl transform scale-90 group-hover:scale-100 transition-transform duration-300 hover:bg-white focus:outline-none focus:ring-4 focus:ring-purple-500/50"
                   onClick={togglePlayPause}
                 >
                   {isPlaying ? (
-                    <svg className="w-8 h-8 text-dark-main" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-8 h-8 text-gray-900" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
                     </svg>
                   ) : (
-                    <svg className="w-8 h-8 text-dark-main ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-8 h-8 text-gray-900 ml-1" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z" />
                     </svg>
                   )}
@@ -323,7 +312,7 @@ export default function Home() {
               {/* Custom Fullscreen Button - Bottom Right */}
               <div className="absolute bottom-4 right-4 z-30">
                 <button
-                  className="w-12 h-12 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-pink-primary/50"
+                  className="w-12 h-12 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
                   onClick={toggleFullscreen}
                 >
                   {isFullscreen ? (
@@ -343,7 +332,7 @@ export default function Home() {
       </section>
 
       {/* Metrics Section */}
-      <section className="py-20 bg-dark-highlighted relative overflow-hidden">
+      <section className="py-20 bg-gray-850 relative overflow-hidden">
         {/* Parallax Background */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -357,37 +346,37 @@ export default function Home() {
         ></div>
 
         {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-dark-highlighted/95"></div>
+        <div className="absolute inset-0 bg-gray-850/95"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-heading">By the Numbers</h2>
+            <h2 className="text-h2 font-display text-gray-200 mb-6">By the Numbers</h2>
           </div>
 
           {/* First row - 4 metrics */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 mb-8">
             {/* 300+ Successful projects completed */}
-            <div className="bg-dark-main/70 backdrop-blur-sm hover:bg-coral-primaries/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
-              <div className="text-4xl md:text-5xl font-bold text-white mb-6 mt-8">
-                <span className="text-white">$500</span><span className="text-coral-primary">M+</span>
+            <div className="bg-gray-900/70 backdrop-blur-sm hover:bg-orange-500/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
+              <div className="text-4xl md:text-5xl font-display text-gray-200 mb-6 mt-8">
+                <span className="text-gray-200">$500</span><span className="text-orange-500">M+</span>
               </div>
-              <div className="text-md text-gray-200 text-left pb-4">Raised by Our Clients</div>
+              <div className="text-body text-gray-300 text-left pb-4 font-text">Raised by Our Clients</div>
             </div>
 
             {/* 10+ Years of experience */}
-            <div className="bg-dark-main/70 backdrop-blur-sm hover:bg-coral-primaries/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
-              <div className="text-4xl md:text-5xl font-bold text-white mb-6 mt-8">
-                <span className="text-white">30</span><span className="text-coral-primary">+</span>
+            <div className="bg-gray-900/70 backdrop-blur-sm hover:bg-orange-500/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
+              <div className="text-4xl md:text-5xl font-display text-gray-200 mb-6 mt-8">
+                <span className="text-gray-200">30</span><span className="text-orange-500">+</span>
               </div>
-              <div className="text-md text-gray-200 text-left pb-4">Successful Rounds of Funding</div>
+              <div className="text-body text-gray-300 text-left pb-4 font-text">Successful Rounds of Funding</div>
             </div>
 
             {/* 99% Customer satisfaction */}
-            <div className="bg-dark-main/70 backdrop-blur-sm hover:bg-coral-primaries/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
-              <div className="text-4xl md:text-5xl font-bold text-white mb-6 mt-8">
-                <span className="text-white">70</span><span className="text-coral-primary">+</span>
+            <div className="bg-gray-900/70 backdrop-blur-sm hover:bg-orange-500/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
+              <div className="text-4xl md:text-5xl font-display text-gray-200 mb-6 mt-8">
+                <span className="text-gray-200">70</span><span className="text-orange-500">+</span>
               </div>
-              <div className="text-md text-gray-200 text-left pb-4">Biopharma Clients Served</div>
+              <div className="text-body text-gray-300 text-left pb-4 font-text">Biopharma Clients Served</div>
             </div>
 
           </div>
@@ -396,41 +385,41 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-0">
 
             {/* 25M Client revenue growth */}
-            <div className="bg-dark-main/70 backdrop-blur-sm hover:bg-coral-primaries/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
-              <div className="text-4xl md:text-5xl font-bold text-white mb-6 mt-8">
-                <span className="text-white">100</span><span className="text-coral-primary">+</span>
+            <div className="bg-gray-900/70 backdrop-blur-sm hover:bg-orange-500/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
+              <div className="text-4xl md:text-5xl font-display text-gray-200 mb-6 mt-8">
+                <span className="text-gray-200">100</span><span className="text-orange-500">+</span>
               </div>
-              <div className="text-md text-gray-200 text-left pb-4">Molecular & Cellular Mechanisms Visualized</div>
+              <div className="text-body text-gray-300 text-left pb-4 font-text">Molecular & Cellular Mechanisms Visualized</div>
             </div>
 
 
             {/* Additional metric 2 */}
-            <div className="bg-dark-main/70 backdrop-blur-sm hover:bg-coral-primaries/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
-              <div className="text-4xl md:text-5xl font-bold text-white mb-6 mt-8">
-                <span className="text-white">1</span>&nbsp;<span className="text-coral-primary">in</span>&nbsp;<span className="text-white">4</span>
+            <div className="bg-gray-900/70 backdrop-blur-sm hover:bg-orange-500/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
+              <div className="text-4xl md:text-5xl font-display text-gray-200 mb-6 mt-8">
+                <span className="text-gray-200">1</span>&nbsp;<span className="text-orange-500">in</span>&nbsp;<span className="text-gray-200">4</span>
               </div>
-              <div className="text-md text-gray-200 text-left pb-4">Clients Return for Additional Projects</div>
+              <div className="text-body text-gray-300 text-left pb-4 font-text">Clients Return for Additional Projects</div>
             </div>
 
             {/* Additional metric 1 */}
-            <div className="bg-dark-main/70 backdrop-blur-sm hover:bg-coral-primaries/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
-              <div className="text-4xl md:text-5xl font-bold text-white mb-6 mt-8">
-                <span className="text-white">10</span><span className="text-coral-primary">+</span>
+            <div className="bg-gray-900/70 backdrop-blur-sm hover:bg-orange-500/30 transition-all duration-300 px-4 text-center border-l border-gray-400 border-opacity-60 flex flex-col items-start justify-center">
+              <div className="text-4xl md:text-5xl font-display text-gray-200 mb-6 mt-8">
+                <span className="text-gray-200">10</span><span className="text-orange-500">+</span>
               </div>
-              <div className="text-md text-gray-200 text-left pb-4">Years of Operation</div>
+              <div className="text-body text-gray-300 text-left pb-4 font-text">Years of Operation</div>
             </div>
           </div>
 
 
-          <p className="text-center text-xl text-gray-100 italic mt-12 font-medium">The track record your breakthrough deserves.</p>
+          <p className="text-center text-body-lg text-gray-300 italic mt-12 font-medium font-text">The track record your breakthrough deserves.</p>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-20 bg-dark-main">
+      <section className="py-20 bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-heading">What Our Clients Say</h2>
+            <h2 className="text-h2 font-display text-gray-200 mb-6">What Our Clients Say</h2>
           </div>
 
           {/* Slider Container */}
@@ -438,7 +427,7 @@ export default function Home() {
             {/* Navigation Buttons */}
             <button
               onClick={prevSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-dark-highlighted/80 hover:bg-dark-highlighted border border-white/20 rounded-full flex items-center justify-center transition-all duration-300"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-gray-850/80 hover:bg-gray-850 border border-white/20 rounded-full flex items-center justify-center transition-all duration-300"
               aria-label="Previous testimonials"
             >
               <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -448,7 +437,7 @@ export default function Home() {
 
             <button
               onClick={nextSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-dark-highlighted/80 hover:bg-dark-highlighted border border-white/20 rounded-full flex items-center justify-center transition-all duration-300"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-gray-850/80 hover:bg-gray-850 border border-white/20 rounded-full flex items-center justify-center transition-all duration-300"
               aria-label="Next testimonials"
             >
               <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -467,21 +456,21 @@ export default function Home() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                       {/* First Row - 3 items */}
                       {testimonials.slice(slideIndex * 6, slideIndex * 6 + 3).map((testimonial) => (
-                        <div key={testimonial.id} className="bg-dark-highlighted/50 backdrop-blur-sm border border-dark-highlighted rounded-xl p-4 sm:p-6 h-full hover:bg-coral-primaries/50 transition-all duration-300">
-                          <p className="text-base sm:text-lg text-gray-300 hover:text-white italic mb-3 sm:mb-4 leading-relaxed transition-all duration-300">
+                        <div key={testimonial.id} className="bg-gray-850/50 backdrop-blur-sm border border-gray-850 rounded-xl p-4 sm:p-6 h-full hover:bg-orange-500/50 transition-all duration-300">
+                          <p className="text-body text-gray-300 hover:text-gray-200 italic mb-3 sm:mb-4 leading-relaxed transition-all duration-300 font-text">
                             "{testimonial.quote}"
                           </p>
-                          <p className="font-semibold text-white text-xs sm:text-sm">— {testimonial.author}</p>
+                          <p className="font-medium text-gray-200 text-small font-text">— {testimonial.author}</p>
                         </div>
                       ))}
 
                       {/* Second Row - 3 items */}
                       {testimonials.slice(slideIndex * 6 + 3, slideIndex * 6 + 6).map((testimonial) => (
-                        <div key={testimonial.id} className="bg-dark-highlighted/50 backdrop-blur-sm border border-dark-highlighted rounded-xl p-4 sm:p-6 h-full hover:bg-coral-primaries/40 transition-all duration-300">
-                          <p className="text-base sm:text-lg text-gray-300  hover:text-white italic mb-3 sm:mb-4 leading-relaxed transition-all duration-300">
+                        <div key={testimonial.id} className="bg-gray-850/50 backdrop-blur-sm border border-gray-850 rounded-xl p-4 sm:p-6 h-full hover:bg-orange-500/40 transition-all duration-300">
+                          <p className="text-body text-gray-300 hover:text-gray-200 italic mb-3 sm:mb-4 leading-relaxed transition-all duration-300 font-text">
                             "{testimonial.quote}"
                           </p>
-                          <p className="font-semibold text-white text-xs sm:text-sm">— {testimonial.author}</p>
+                          <p className="font-medium text-gray-200 text-small font-text">— {testimonial.author}</p>
                         </div>
                       ))}
                     </div>
@@ -497,7 +486,7 @@ export default function Home() {
                   key={index}
                   onClick={() => setCurrentSlide(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentSlide
-                    ? 'bg-coral-primary scale-125'
+                    ? 'bg-orange-500 scale-125'
                     : 'bg-white/30 hover:bg-white/50'
                     }`}
                   aria-label={`Go to slide ${index + 1}`}
@@ -509,126 +498,126 @@ export default function Home() {
       </section>
 
       {/* Team Section */}
-      <section className="py-20 bg-dark-highlighted">
+      <section className="py-20 bg-gray-850">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-heading">Your Scientific Leadership Team</h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <h2 className="text-h2 font-display text-gray-200 mb-6">Your Scientific Leadership Team</h2>
+            <p className="text-body-lg text-gray-300 max-w-3xl mx-auto font-text">
               Meet the dedicated senior experts who will guide your project from scientific discovery to final delivery.
             </p>
           </div>
 
           <div className="space-y-12">
-            <div className="bg-dark-main hover:bg-coral-primaries/40 rounded-xl p-0 hover:border-coral-primaries/50 border border-white/20 transition-colors group">
+            <div className="bg-gray-900 hover:bg-orange-500/40 rounded-xl p-0 hover:border-orange-500/50 border border-white/20 transition-colors group">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start cursor-pointer">
                 <div className="w-full h-full rounded-l-xl mx-auto lg:mx-0 overflow-hidden">
                   <img
                     src="/images/team/Ksenia.jpg"
                     alt="Ksenia Timonina, PhD"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover transition-transform duration-300"
                   />
                 </div>
                 <div className="lg:col-span-2 py-8 pr-8">
-                  <h4 className="text-2xl font-bold text-pink-accent group-hover:text-white mb-4 font-heading transition-colors duration-300">Ksenia Timonina, PhD<br />Scientific Managing Director</h4>
-                  <p className="text-gray-300 group-hover:text-gray-100 leading-relaxed mb-6 transition-colors duration-300">
+                  <h4 className="text-h3 font-display text-purple-500 group-hover:text-gray-200 mb-4 transition-colors duration-300">Ksenia Timonina, PhD<br />Scientific Managing Director</h4>
+                  <p className="text-gray-300 group-hover:text-gray-100 leading-relaxed mb-6 transition-colors duration-300 font-text">
                     Your main point of contact. Ensures scientific accuracy across all project phases, keeping timelines on track and stakeholder communication seamless. Reviews every frame for scientific precision. Five peer-reviewed papers. Also has Level 9 Piano certification, which explains why your project runs like a perfectly orchestrated symphony.
                   </p>
-                  <div className="text-sm text-gray-400 group-hover:text-gray-200 space-y-1 transition-colors duration-300">
-                    <p><strong className="text-pink-primary group-hover:text-coral-primary">Credentials:</strong> PhD Molecular Biology, York University</p>
-                    <p><strong className="text-pink-primary group-hover:text-coral-primary">Expertise:</strong> Project Management, Team Leadership, Scientific Review</p>
-                    <p><strong className="text-pink-primary group-hover:text-coral-primary">Based in:</strong> Canada (Eastern Time)</p>
+                  <div className="text-small text-gray-500 group-hover:text-gray-300 space-y-1 transition-colors duration-300 font-text">
+                    <p><strong className="text-purple-500 group-hover:text-orange-500">Credentials:</strong> PhD Molecular Biology, York University</p>
+                    <p><strong className="text-purple-500 group-hover:text-orange-500">Expertise:</strong> Project Management, Team Leadership, Scientific Review</p>
+                    <p><strong className="text-purple-500 group-hover:text-orange-500">Based in:</strong> Canada (Eastern Time)</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-dark-main hover:bg-coral-primaries/40 rounded-xl p-0 hover:border-coral-primaries/50 border  border-white/20 transition-colors group">
+            <div className="bg-gray-900 hover:bg-orange-500/40 rounded-xl p-0 hover:border-orange-500/50 border  border-white/20 transition-colors group">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start cursor-pointer">
                 <div className="lg:col-span-2 py-8 pl-8 order-2 lg:order-1">
-                  <h4 className="text-2xl font-bold text-pink-accent group-hover:text-white mb-4 font-heading transition-colors duration-300">Isabel Canto, PhD<br />Scientific Story Architect</h4>
+                  <h4 className="text-h3 font-display text-purple-500 group-hover:text-gray-200 mb-4 transition-colors duration-300">Isabel Canto, PhD<br />Scientific Story Architect</h4>
                   <p className="text-gray-300 group-hover:text-gray-100 leading-relaxed mb-6 transition-colors duration-300">
                     Writes your script. Creates your storyboard. Takes your 200-slide deck and turns it into a 3-minute story that gets funded. Eight publications. Over 100 projects since 2015. Quiet in meetings but comes back with visual solutions so clever you'll wonder if she's psychic.
                   </p>
-                  <div className="text-sm text-gray-400 group-hover:text-gray-200 space-y-1 transition-colors duration-300">
-                    <p><strong className="text-pink-primary group-hover:text-coral-primary">Credentials:</strong> PhD Biomedical Sciences, UC San Diego</p>
-                    <p><strong className="text-pink-primary group-hover:text-coral-primary">Expertise:</strong> Scientific Storytelling, Scriptwriting, Storyboarding</p>
-                    <p><strong className="text-pink-primary group-hover:text-coral-primary">Based in:</strong> United States (Pacific Time)</p>
+                  <div className="text-small text-gray-500 group-hover:text-gray-300 font-text space-y-1 transition-colors duration-300">
+                    <p><strong className="text-purple-500 group-hover:text-orange-500">Credentials:</strong> PhD Biomedical Sciences, UC San Diego</p>
+                    <p><strong className="text-purple-500 group-hover:text-orange-500">Expertise:</strong> Scientific Storytelling, Scriptwriting, Storyboarding</p>
+                    <p><strong className="text-purple-500 group-hover:text-orange-500">Based in:</strong> United States (Pacific Time)</p>
                   </div>
                 </div>
                 <div className="w-full h-full rounded-r-xl mx-auto lg:mx-0 overflow-hidden order-1 lg:order-2">
                   <img
                     src="/images/team/isabel.jpg"
                     alt="Isabel Canto, PhD"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover transition-transform duration-300"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="bg-dark-main hover:bg-coral-primaries/40 rounded-xl p-0 hover:border-coral-primaries/50 border  border-white/20 transition-colors group">
+            <div className="bg-gray-900 hover:bg-orange-500/40 rounded-xl p-0 hover:border-orange-500/50 border  border-white/20 transition-colors group">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start cursor-pointer">
                 <div className="w-full h-full rounded-l-xl mx-auto lg:mx-0 overflow-hidden">
                   <img
                     src="/images/team/Andrew.jpg"
                     alt="Andrew Catalano, PhD"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover transition-transform duration-300"
                   />
                 </div>
                 <div className="lg:col-span-2 py-8 pr-8">
-                  <h4 className="text-2xl font-bold text-pink-accent group-hover:text-white mb-4 font-heading transition-colors duration-300">Andrew Catalano, PhD<br />Scientific Visualization Specialist</h4>
+                  <h4 className="text-h3 font-display text-purple-500 group-hover:text-gray-200 mb-4 transition-colors duration-300">Andrew Catalano, PhD<br />Scientific Visualization Specialist</h4>
                   <p className="text-gray-300 group-hover:text-gray-100 leading-relaxed mb-6 transition-colors duration-300">
                     Builds your molecular models. Makes sure every protein folds correctly. Published crystal structures at 4.1 Å resolution. When not perfecting your MOA, he's teaching university students why their proteins are drawn wrong.
                   </p>
-                  <div className="text-sm text-gray-400 group-hover:text-gray-200 space-y-1 transition-colors duration-300">
-                    <p><strong className="text-pink-primary group-hover:text-coral-primary">Credentials:</strong> PhD Cell and Systems Biology, University of Toronto</p>
-                    <p><strong className="text-pink-primary group-hover:text-coral-primary">Expertise:</strong> 3D Modeling, Structural Biology, Scientific Accuracy</p>
-                    <p><strong className="text-pink-primary group-hover:text-coral-primary">Based in:</strong> Canada (Eastern Time)</p>
+                  <div className="text-small text-gray-500 group-hover:text-gray-300 font-text space-y-1 transition-colors duration-300">
+                    <p><strong className="text-purple-500 group-hover:text-orange-500">Credentials:</strong> PhD Cell and Systems Biology, University of Toronto</p>
+                    <p><strong className="text-purple-500 group-hover:text-orange-500">Expertise:</strong> 3D Modeling, Structural Biology, Scientific Accuracy</p>
+                    <p><strong className="text-purple-500 group-hover:text-orange-500">Based in:</strong> Canada (Eastern Time)</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-dark-main hover:bg-coral-primaries/40 rounded-xl p-0 hover:border-coral-primaries/50 border  border-white/20 transition-colors group">
+            <div className="bg-gray-900 hover:bg-orange-500/40 rounded-xl p-0 hover:border-orange-500/50 border  border-white/20 transition-colors group">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start cursor-pointer">
                 <div className="lg:col-span-2 py-8 pl-8 order-2 lg:order-1">
-                  <h4 className="text-2xl font-bold text-pink-accent group-hover:text-white mb-4 font-heading transition-colors duration-300">Ushma Patel, MS<br />Scientific Art Specialist</h4>
+                  <h4 className="text-h3 font-display text-purple-500 group-hover:text-gray-200 mb-4 transition-colors duration-300">Ushma Patel, MS<br />Scientific Art Specialist</h4>
                   <p className="text-gray-300 group-hover:text-gray-100 leading-relaxed mb-6 transition-colors duration-300">
                     Creates your Style Frames. Defines your visual brand. 2024 AMI Award winner. Claims her best ideas come from video games and walks, which sounds suspicious until you see the results.
                   </p>
-                  <div className="text-sm text-gray-400 group-hover:text-gray-200 space-y-1 transition-colors duration-300">
-                    <p><strong className="text-pink-primary group-hover:text-coral-primary">Credentials:</strong> MS Biomedical Visualization, University of Illinois Chicago; BS Neuroscience, Dominican University</p>
-                    <p><strong className="text-pink-primary group-hover:text-coral-primary">Expertise:</strong> Art Direction, Style Frame Development, Visual Branding</p>
-                    <p><strong className="text-pink-primary group-hover:text-coral-primary">Based in:</strong> United States (Mountain Time)</p>
+                  <div className="text-small text-gray-500 group-hover:text-gray-300 font-text space-y-1 transition-colors duration-300">
+                    <p><strong className="text-purple-500 group-hover:text-orange-500">Credentials:</strong> MS Biomedical Visualization, University of Illinois Chicago; BS Neuroscience, Dominican University</p>
+                    <p><strong className="text-purple-500 group-hover:text-orange-500">Expertise:</strong> Art Direction, Style Frame Development, Visual Branding</p>
+                    <p><strong className="text-purple-500 group-hover:text-orange-500">Based in:</strong> United States (Mountain Time)</p>
                   </div>
                 </div>
                 <div className="w-full h-full rounded-r-xl mx-auto lg:mx-0 overflow-hidden order-1 lg:order-2">
                   <img
                     src="/images/team/ushma.jpg"
                     alt="Ushma Patel, MS"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover transition-transform duration-300"
                   />
                 </div>
               </div>
             </div>
 
-            <div className="bg-dark-main hover:bg-coral-primaries/40 rounded-xl p-0 hover:border-coral-primaries/50 border  border-white/20 transition-colors group">
+            <div className="bg-gray-900 hover:bg-orange-500/40 rounded-xl p-0 hover:border-orange-500/50 border  border-white/20 transition-colors group">
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start cursor-pointer">
                 <div className="w-full h-full rounded-l-xl mx-auto lg:mx-0 overflow-hidden">
                   <img
                     src="/images/team/benjamin.jpg"
                     alt="Benjamin Denton"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover transition-transform duration-300"
                   />
                 </div>
                 <div className="lg:col-span-2 py-8 pr-8">
-                  <h4 className="text-2xl font-bold text-pink-accent group-hover:text-white mb-4 font-heading transition-colors duration-300">Benjamin Denton<br />Founder & CEO</h4>
+                  <h4 className="text-h3 font-display text-purple-500 group-hover:text-gray-200 mb-4 transition-colors duration-300">Benjamin Denton<br />Founder & CEO</h4>
                   <p className="text-gray-300 group-hover:text-gray-100 leading-relaxed mb-6 transition-colors duration-300">
                     Founded Biomol Visual after working in pharmaceutical business development, managing drug discovery partnerships. Built and retained an exceptional team of PhD and MSc specialists. Driven by the belief that entrepreneurship fuels scientific progress. He helps biotech founders turn innovations into funded realities. Still gets nightmares about Comic Sans in investor presentations.
                   </p>
-                  <div className="text-sm text-gray-400 group-hover:text-gray-200 space-y-1 transition-colors duration-300">
-                    <p><strong className="text-pink-primary group-hover:text-coral-primary">Credentials:</strong> BSc Biotechnology, University College London</p>
-                    <p><strong className="text-pink-primary group-hover:text-coral-primary">Expertise:</strong> Team Leadership, Business Strategy, Lean Operations</p>
-                    <p><strong className="text-pink-primary group-hover:text-coral-primary">Based in:</strong> United States (Pacific Time)</p>
+                  <div className="text-small text-gray-500 group-hover:text-gray-300 font-text space-y-1 transition-colors duration-300">
+                    <p><strong className="text-purple-500 group-hover:text-orange-500">Credentials:</strong> BSc Biotechnology, University College London</p>
+                    <p><strong className="text-purple-500 group-hover:text-orange-500">Expertise:</strong> Team Leadership, Business Strategy, Lean Operations</p>
+                    <p><strong className="text-purple-500 group-hover:text-orange-500">Based in:</strong> United States (Pacific Time)</p>
                   </div>
                 </div>
               </div>
@@ -642,78 +631,78 @@ export default function Home() {
       <PhaseSlider />
 
       {/* Mobile - Simple Vertical Column */}
-      <section className="md:hidden pt-20 bg-dark-main">
+      <section className="md:hidden pt-20 bg-gray-900">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-6 font-heading">A Simple 5-Phase System</h2>
+            <h2 className="text-h2 font-display text-gray-200 mb-6">A Simple 5-Phase System</h2>
           </div>
 
           <div className="flex flex-col space-y-8">
             {/* Phase 1 */}
-            <div className="w-full h-[480px] flex-shrink-0 flex flex-col p-8 border border-white/10 hover:border-t-coral-primary hover:border-t-8 transition-all duration-300">
+            <div className="w-full h-[480px] flex-shrink-0 flex flex-col p-8 border border-white/10 hover:border-t-orange-500 hover:border-t-8 transition-all duration-300">
               <div className="flex items-center justify-start mb-8">
-                <span className="text-1xl md:text-2xl font-bold text-white/50">PHASE 1</span>
-                <div className="w-4 h-4 bg-coral-primary ml-4"></div>
+                <span className="text-1xl md:text-h3 font-display text-white/50">PHASE 1</span>
+                <div className="w-4 h-4 bg-orange-500 ml-4"></div>
               </div>
               <div className="flex-1 gap-4 flex flex-col justify-end h-full">
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">Strategy & Storyboard</h3>
-                <div className="text-xl text-white/50 leading-7 min-h-[200px]">
+                <h3 className="text-h3 font-display text-gray-200 mb-6">Strategy & Storyboard</h3>
+                <div className="text-body-lg text-gray-500 leading-7 font-text min-h-[200px]">
                   We start with a deep dive into your science, developing a script and visual storyboard. You approve the complete strategic and narrative plan before anything is built.
                 </div>
               </div>
             </div>
 
             {/* Phase 2 */}
-            <div className="w-full h-[480px] flex-shrink-0 flex flex-col p-8 border border-white/10 hover:border-t-coral-primary hover:border-t-8 transition-all duration-300">
+            <div className="w-full h-[480px] flex-shrink-0 flex flex-col p-8 border border-white/10 hover:border-t-orange-500 hover:border-t-8 transition-all duration-300">
               <div className="flex items-center justify-start mb-8">
-                <span className="text-1xl md:text-2xl font-bold text-white/50">PHASE 2</span>
-                <div className="w-4 h-4 bg-coral-primary ml-4"></div>
+                <span className="text-1xl md:text-h3 font-display text-white/50">PHASE 2</span>
+                <div className="w-4 h-4 bg-orange-500 ml-4"></div>
               </div>
               <div className="flex-1 gap-4 flex flex-col justify-end h-full">
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">Design & Animatic</h3>
-                <div className="text-xl text-white/50 leading-7 min-h-[200px]">
+                <h3 className="text-h3 font-display text-gray-200 mb-6">Design & Animatic</h3>
+                <div className="text-body-lg text-gray-500 leading-7 font-text min-h-[200px]">
                   Next, we define the visual universe for your project. You approve the final look and feel with Style Frames and the precise timing with an Animatic, ensuring perfect alignment before production begins.
                 </div>
               </div>
             </div>
 
             {/* Phase 3 */}
-            <div className="w-full h-[480px] flex-shrink-0 flex flex-col p-8 border border-white/10 hover:border-t-coral-primary hover:border-t-8 transition-all duration-300">
+            <div className="w-full h-[480px] flex-shrink-0 flex flex-col p-8 border border-white/10 hover:border-t-orange-500 hover:border-t-8 transition-all duration-300">
               <div className="flex items-center justify-start mb-8">
-                <span className="text-1xl md:text-2xl font-bold text-white/50">PHASE 3</span>
-                <div className="w-4 h-4 bg-coral-primary ml-4"></div>
+                <span className="text-1xl md:text-h3 font-display text-white/50">PHASE 3</span>
+                <div className="w-4 h-4 bg-orange-500 ml-4"></div>
               </div>
               <div className="flex-1 gap-4 flex flex-col justify-end h-full">
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">Production &<br /> Post-Production</h3>
-                <div className="text-xl text-white/50 leading-7 min-h-[200px]">
+                <h3 className="text-h3 font-display text-gray-200 mb-6">Production &<br /> Post-Production</h3>
+                <div className="text-body-lg text-gray-500 leading-7 font-text min-h-[200px]">
                   With the blueprint approved, our dedicated team of scientific experts brings the vision to life through 3D modeling, animation, and cinematic post-production.
                 </div>
               </div>
             </div>
 
             {/* Phase 4 */}
-            <div className="w-full h-[480px] flex-shrink-0 flex flex-col p-8 border border-white/10 hover:border-t-coral-primary hover:border-t-8 transition-all duration-300">
+            <div className="w-full h-[480px] flex-shrink-0 flex flex-col p-8 border border-white/10 hover:border-t-orange-500 hover:border-t-8 transition-all duration-300">
               <div className="flex items-center justify-start mb-8">
-                <span className="text-1xl md:text-2xl font-bold text-white/50">PHASE 4</span>
-                <div className="w-4 h-4 bg-coral-primary ml-4"></div>
+                <span className="text-1xl md:text-h3 font-display text-white/50">PHASE 4</span>
+                <div className="w-4 h-4 bg-orange-500 ml-4"></div>
               </div>
               <div className="flex-1 gap-4 flex flex-col justify-end h-full">
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">Final Delivery</h3>
-                <div className="text-xl text-white/50 leading-7 min-h-[200px]">
+                <h3 className="text-h3 font-display text-gray-200 mb-6">Final Delivery</h3>
+                <div className="text-body-lg text-gray-500 leading-7 font-text min-h-[200px]">
                   You receive the final, high-resolution visualization, ready for your investor meeting, conference presentation, or website launch.
                 </div>
               </div>
             </div>
 
             {/* Phase 5 */}
-            <div className="w-full h-[480px] flex-shrink-0 flex flex-col p-8 border border-white/10 hover:border-t-coral-primary hover:border-t-8 transition-all duration-300">
+            <div className="w-full h-[480px] flex-shrink-0 flex flex-col p-8 border border-white/10 hover:border-t-orange-500 hover:border-t-8 transition-all duration-300">
               <div className="flex items-center justify-start mb-8">
-                <span className="text-1xl md:text-2xl font-bold text-white/50">PHASE 5</span>
-                <div className="w-4 h-4 bg-coral-primary ml-4"></div>
+                <span className="text-1xl md:text-h3 font-display text-white/50">PHASE 5</span>
+                <div className="w-4 h-4 bg-orange-500 ml-4"></div>
               </div>
               <div className="flex-1 gap-4 flex flex-col justify-end h-full">
-                <h3 className="text-3xl md:text-4xl font-bold text-white mb-6 font-heading">Strategic Deployment</h3>
-                <div className="text-xl text-white/50 leading-7 min-h-[200px]">
+                <h3 className="text-h3 font-display text-gray-200 mb-6">Strategic Deployment</h3>
+                <div className="text-body-lg text-gray-500 leading-7 font-text min-h-[200px]">
                   Finally, we activate your new asset. The same scientific experts who built your visualization work directly with your team to guide its strategic deployment, maximizing its value long after delivery.
                 </div>
               </div>
@@ -722,70 +711,70 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-dark-main py-16">
-        <div className="text-center font-heading text-xl text-gray-300 italic">
+      <section className="bg-gray-900 py-16">
+        <div className="text-center text-body-lg text-gray-300 italic font-text">
           A process designed for total clarity,<br className='md:hidden block' /> giving you a transparent, <br className='md:hidden block' />real-time view of your project's progress.
         </div>
-        <div className='w-48 mt-2 h-1 bg-coral-primary mx-auto'></div>
+        <div className='w-48 mt-2 h-1 bg-orange-500 mx-auto'></div>
       </section>
 
       {/* Security Section */}
-      <section className="py-20 bg-dark-highlighted">
+      <section className="py-20 bg-gray-850">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-heading">Your Science Stays Your Science</h2>
-            <p className="text-xl text-gray-300 max-w-4xl mx-auto">
+            <h2 className="text-h2 font-display text-gray-200 mb-6">Your Science Stays Your Science</h2>
+            <p className="text-body-lg text-gray-300 max-w-4xl mx-auto font-text">
               We get it. You're about to share your breakthrough with strangers. The mechanism you've spent years perfecting. The data that isn't published yet. Here's our commitment to protecting it:
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            <div className="bg-dark-main/50 backdrop-blur-sm border border-dark-highlighted rounded-xl p-6 text-center hover:bg-pink-primary/10 transition-colors">
-              <div className="w-12 h-12 bg-pink-primary/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-850 rounded-xl p-6 text-center hover:bg-purple-500/10 transition-colors">
+              <div className="w-12 h-12 bg-purple-500/20 rounded-full mx-auto mb-4 flex items-center justify-center">
                 <ShieldCheck size={48} />
               </div>
-              <h4 className="text-lg font-bold text-white mb-3 font-heading tracking-[1px]">Ironclad NDAs</h4>
-              <p className="text-gray-300 text-sm">
+              <h4 className="text-body-lg font-display text-gray-200 mb-3">Ironclad NDAs</h4>
+              <p className="text-gray-300 text-small font-text">
                 We are happy to execute a mutual Non-Disclosure Agreement to protect your confidential information from day one.
               </p>
             </div>
 
-            <div className="bg-dark-main/50 backdrop-blur-sm border border-dark-highlighted rounded-xl p-6 text-center hover:bg-pink-primary/10 transition-colors">
-              <div className="w-12 h-12 bg-pink-primary/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-850 rounded-xl p-6 text-center hover:bg-purple-500/10 transition-colors">
+              <div className="w-12 h-12 bg-purple-500/20 rounded-full mx-auto mb-4 flex items-center justify-center">
                 <LockKeyhole size={48}/>
               </div>
-              <h4 className="text-lg font-bold text-white mb-3 font-heading tracking-[1px]">Military-Grade Encryption</h4>
-              <p className="text-gray-300 text-sm">
+              <h4 className="text-body-lg font-display text-gray-200 mb-3">Military-Grade Encryption</h4>
+              <p className="text-gray-300 text-small font-text">
                 Your files are protected at every stage using 256-bit AES encryption.
               </p>
             </div>
 
-            <div className="bg-dark-main/50 backdrop-blur-sm border border-dark-highlighted rounded-xl p-6 text-center hover:bg-pink-primary/10 transition-colors">
-              <div className="w-12 h-12 bg-pink-primary/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-850 rounded-xl p-6 text-center hover:bg-purple-500/10 transition-colors">
+              <div className="w-12 h-12 bg-purple-500/20 rounded-full mx-auto mb-4 flex items-center justify-center">
                <TeamIcon  size={48}/>
               </div>
-              <h4 className="text-lg font-bold text-white mb-3 font-heading tracking-[1px]">Secure Team Access</h4>
-              <p className="text-gray-300 text-sm">
+              <h4 className="text-body-lg font-display text-gray-200 mb-3">Secure Team Access</h4>
+              <p className="text-gray-300 text-small font-text">
                 All confidential information is restricted to our scientific leadership team, based exclusively in the US and Canada.
               </p>
             </div>
 
-            <div className="bg-dark-main/50 backdrop-blur-sm border border-dark-highlighted rounded-xl p-6 text-center hover:bg-pink-primary/10 transition-colors">
-              <div className="w-12 h-12 bg-pink-primary/20 rounded-full mx-auto mb-4 flex items-center justify-center">
+            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-850 rounded-xl p-6 text-center hover:bg-purple-500/10 transition-colors">
+              <div className="w-12 h-12 bg-purple-500/20 rounded-full mx-auto mb-4 flex items-center justify-center">
                 <Trash2  size={48}/>
               </div>
-              <h4 className="text-lg font-bold text-white mb-3 font-heading tracking-[1px]">Data Destruction on Request</h4>
-              <p className="text-gray-300 text-sm">
+              <h4 className="text-body-lg font-display text-gray-200 mb-3">Data Destruction on Request</h4>
+              <p className="text-gray-300 text-small font-text">
                 We provide complete data destruction upon project completion.
               </p>
             </div>
           </div>
 
           <div className="text-center space-y-6">
-            <p className="text-lg text-gray-300">
+            <p className="text-body-lg text-gray-300 font-text">
               We've protected the confidential information of over 70 biotech clients. Including some of the most innovative and sensitive biotherapeutic research in the industry. Not one breach. Not one leak. Not one sleepless night for our clients.
             </p>
-            <p className="text-2xl font-semibold text-pink-accent font-heading">
+            <p className="text-h3 font-display text-purple-500">
               Your secret stays secret. Until you're ready to change the world.
             </p>
           </div>
@@ -793,18 +782,18 @@ export default function Home() {
       </section>
 
       {/* Competitive Positioning Section */}
-      <section className="py-20 bg-dark-main">
+      <section className="py-20 bg-gray-900">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 font-heading">Why Pay for a Mega-Agency's Overhead?</h2>
+          <h2 className="text-h2 font-display text-gray-200 mb-8">Why Pay for a Mega-Agency's Overhead?</h2>
 
-          <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
+          <div className="space-y-6 text-body-lg text-gray-300 font-text leading-relaxed">
             <p>
-              The largest Scientific Communication Studios are built on a model of massive scale. You benefit from <span className="text-coral-primary font-bold">radically lean operations</span> by design. We have obsessively engineered our entire process to be ruthlessly efficient—from software to business structure. This means zero overhead bloat. Your investment goes directly to the senior talent working on your project.
+              The largest Scientific Communication Studios are built on a model of massive scale. You benefit from <span className="text-orange-500 font-display">radically lean operations</span> by design. We have obsessively engineered our entire process to be ruthlessly efficient—from software to business structure. This means zero overhead bloat. Your investment goes directly to the senior talent working on your project.
             </p>
 
             <p>It's simple. You get a funding-grade result, without paying for mega-agency overhead.</p>
 
-            <p className="text-2xl font-bold font-heading trackin-[1px] mt-8 text-pink-accent">
+            <p className="text-h3 font-display trackin-[1px] mt-8 text-purple-500">
               A level of value the larger studios simply can't touch.
             </p>
           </div>
@@ -812,7 +801,7 @@ export default function Home() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-dark-highlighted to-pink-primary/20 relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-br from-gray-850 to-purple-500/20 relative overflow-hidden">
         {/* Parallax Background */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -826,35 +815,35 @@ export default function Home() {
         ></div>
 
         {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-dark-highlighted/20 to-pink-primary/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-850/20 to-purple-500/30"></div>
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 font-heading">Stop Explaining. Start Showing.</h2>
+          <h2 className="text-h1 font-display text-gray-200 mb-8">Stop Explaining. Start Showing.</h2>
 
-          <p className="text-xl text-gray-300 mb-8">
+          <p className="text-body-lg text-gray-300 mb-8 font-text">
             Every day without a powerful fundraising asset, the cost of a complex story grows.
           </p>
 
-          <ul className="text-lg text-gray-300 space-y-4 mb-12 text-left max-w-2xl mx-auto list-disc">
+          <ul className="text-body-lg text-gray-300 font-text space-y-4 mb-12 text-left max-w-2xl mx-auto list-disc">
             <li className="flex items-start">
-              <span className="text-coral-primary mr-3"><Check /></span>
+              <span className="text-orange-500 mr-3"><Check /></span>
               Investors struggle to grasp your science.
             </li>
             <li className="flex items-start">
-              <span className="text-coral-primary mr-3"><Check /></span>
+              <span className="text-orange-500 mr-3"><Check /></span>
               Potential partners miss your key competitive advantage.
             </li>
             <li className="flex items-start">
-              <span className="text-coral-primary mr-3"><Check /></span>
+              <span className="text-orange-500 mr-3"><Check /></span>
               Your momentum is lost in a loop of re-explaining the core science.
             </li>
             <li className="flex items-start">
-              <span className="text-coral-primary mr-3"><Check /></span>
+              <span className="text-orange-500 mr-3"><Check /></span>
               Competitors with clearer stories win the funding that should be yours.
             </li>
           </ul>
 
-          <p className="text-2xl font-heading tracking-[0.05rem] font-semibold text-pink-accent mb-8">
+          <p className="text-h3 font-display text-purple-500 mb-8">
             One powerful fundraising asset solves all of this.
           </p>
 
@@ -864,12 +853,12 @@ export default function Home() {
               hoverText="Let's Talk!"
               variant="primary"
               size="lg"
-              className="mb-4 w-72 !bg-coral-primary hover:bg-coral-primary/90"
+              className="mb-4 w-72"
             />
-            <p className="text-sm text-gray-400 mb-8">30-minute call. No obligation. Takes 2 minutes to book.</p>
+            <p className="text-small text-gray-500 mb-8 font-text">30-minute call. No obligation. Takes 2 minutes to book.</p>
           </div>
 
-          <p className="text-lg text-gray-300">
+          <p className="text-body-lg text-gray-300 font-text">
             In a 30-minute call, we will show you exactly how to transform your science into your most powerful communication asset.
           </p>
         </div>

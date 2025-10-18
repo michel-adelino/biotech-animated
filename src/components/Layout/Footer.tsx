@@ -7,7 +7,7 @@ export default function Footer() {
             <img 
               src="/images/logo.png" 
               alt="Biomol Visual" 
-              className="h-20 mb-4"
+              className="h-8 w-auto mb-4"
             />
             <p className="text-sm text-gray-400 mb-4">Molecular and Cellular MOA & MOD Visualization Specialists</p>
             <p className="text-sm text-gray-300 leading-relaxed">

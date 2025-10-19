@@ -9,97 +9,106 @@ import PhaseSlider from '../components/PhaseSlider';
 import { Check, LockKeyhole, ShieldCheck, Trash2 } from 'lucide-react';
 import TeamIcon from '@/components/TeamIcon';
 
-// Testimonials data
+// Testimonials data - Top 5 testimonials with existing logos
 const testimonials = [
   {
     id: 1,
+    logo: "/images/logos/Dimerix.webp",
+    company: "Dimerix",
+    brief: "Receptor-HIT platform visualization for investor presentations",
     quote: "Working with a team that has a deep scientific background is critical. They understood the nuances of our Receptor-HIT platform immediately. The process was efficient, the scientific accuracy was impeccable, and it saved our internal team a significant amount of time.",
-    author: "Dr. Nina Webster, CEO, Dimerix"
+    author: "Dr. Nina Webster",
+    title: "CEO, Dimerix"
   },
   {
     id: 2,
+    logo: "/images/logos/SAb Bio.webp",
+    company: "SAb Biotherapeutics",
+    brief: "Antibody production platform animation for Series A funding",
     quote: "The animation was a game-changer for our investor presentations. For the first time, we could show our entire antibody production platform in under 2 minutes... and gave investors incredible confidence in our technology.",
-    author: "Eddie Sullivan, Co-Founder, President & CEO, SAb Biotherapeutics"
+    author: "Eddie Sullivan",
+    title: "Co-Founder, President & CEO, SAb Biotherapeutics"
   },
   {
     id: 3,
+    logo: "/images/logos/Patrys.webp",
+    company: "Patrys",
+    brief: "Partnership discussions and pharma collaboration visualization",
     quote: "The final animation was not only scientifically precise but also visually stunning. It became a cornerstone of our partnership discussions and was met with overwhelmingly positive feedback from potential pharma partners.",
-    author: "Dr. James Campbell, CEO and Managing Director, Patrys"
+    author: "Dr. James Campbell",
+    title: "CEO and Managing Director, Patrys"
   },
   {
     id: 4,
+    logo: "/images/logos/Chimera Bio.webp",
+    company: "Chimera Bio",
+    brief: "Scientific communication and investor relations",
     quote: "The team understands science and biotech, so communication is direct and effective — no wasting time bringing designers up to speed.",
-    author: "Dr. James Campbell, CEO, Patrys"
+    author: "Dr. James Campbell",
+    title: "CEO, Chimera Bio"
   },
   {
     id: 5,
+    logo: "/images/logos/Bio-Techne.webp",
+    company: "Bio-Techne",
+    brief: "Complex technology communication for investors and partners",
     quote: "Their scientific accuracy and attention to detail helped us communicate our complex technology effectively to investors and partners.",
-    author: "Dr. Sarah Chen, CTO, BioTech Innovations"
+    author: "Dr. Sarah Chen",
+    title: "CTO, Bio-Techne"
+  }
+];
+
+// Team data for slider
+const teamMembers = [
+  {
+    id: 1,
+    name: "Ksenia Timonina, PhD",
+    title: "Scientific Managing Director",
+    image: "/images/team/Ksenia.jpg",
+    description: "Your main point of contact. Ensures scientific accuracy across all project phases, keeping timelines on track and stakeholder communication seamless. Reviews every frame for scientific precision. Five peer-reviewed papers. Also has Level 9 Piano certification, which explains why your project runs like a perfectly orchestrated symphony.",
+    credentials: "PhD Molecular Biology, York University",
+    expertise: "Project Management, Team Leadership, Scientific Review",
+    location: "Canada (Eastern Time)"
   },
   {
-    id: 6,
-    quote: "The visualization they created became our most powerful fundraising tool. It perfectly captured our molecular mechanism in a way that resonated with investors.",
-    author: "Michael Rodriguez, CEO, Molecular Dynamics Inc."
+    id: 2,
+    name: "Isabel Canto, PhD",
+    title: "Scientific Story Architect",
+    image: "/images/team/isabel.jpg",
+    description: "Writes your script. Creates your storyboard. Takes your 200-slide deck and turns it into a 3-minute story that gets funded. Eight publications. Over 100 projects since 2015. Quiet in meetings but comes back with visual solutions so clever you'll wonder if she's psychic.",
+    credentials: "PhD Biomedical Sciences, UC San Diego",
+    expertise: "Scientific Storytelling, Scriptwriting, Storyboarding",
+    location: "United States (Pacific Time)"
   },
   {
-    id: 7,
-    quote: "Biomol Visual transformed our complex gene therapy platform into a compelling visual story. The animation helped us secure $50M in Series B funding within 3 months of completion.",
-    author: "Dr. Elena Rodriguez, CEO, GeneThera Solutions"
+    id: 3,
+    name: "Andrew Catalano, PhD",
+    title: "Scientific Visualization Specialist",
+    image: "/images/team/Andrew.jpg",
+    description: "Builds your molecular models. Makes sure every protein folds correctly. Published crystal structures at 4.1 Å resolution. When not perfecting your MOA, he's teaching university students why their proteins are drawn wrong.",
+    credentials: "PhD Cell and Systems Biology, University of Toronto",
+    expertise: "3D Modeling, Structural Biology, Scientific Accuracy",
+    location: "Canada (Eastern Time)"
   },
   {
-    id: 8,
-    quote: "Their expertise in molecular visualization is unmatched. They took our intricate protein folding mechanism and made it accessible to non-scientific investors. Absolutely brilliant work.",
-    author: "Dr. Marcus Thompson, CSO, Protein Dynamics Ltd"
+    id: 4,
+    name: "Ushma Patel, MS",
+    title: "Scientific Art Specialist",
+    image: "/images/team/ushma.jpg",
+    description: "Creates your Style Frames. Defines your visual brand. 2024 AMI Award winner. Claims her best ideas come from video games and walks, which sounds suspicious until you see the results.",
+    credentials: "MS Biomedical Visualization, University of Illinois Chicago; BS Neuroscience, Dominican University",
+    expertise: "Art Direction, Style Frame Development, Visual Branding",
+    location: "United States (Mountain Time)"
   },
   {
-    id: 9,
-    quote: "The team's ability to translate complex cellular processes into clear, engaging visuals is remarkable. Our partnership presentations have never been more effective.",
-    author: "Dr. Lisa Park, VP Business Development, CellTech Innovations"
-  },
-  {
-    id: 10,
-    quote: "Working with Biomol Visual was a game-changer for our Series A. The animation perfectly explained our novel drug delivery mechanism, helping us close our round 40% faster than expected.",
-    author: "Dr. Robert Kim, CEO, NanoMed Therapeutics"
-  },
-  {
-    id: 11,
-    quote: "Their scientific rigor combined with creative storytelling created the perfect fundraising asset. We've used the animation in over 50 investor meetings with incredible results.",
-    author: "Dr. Amanda Foster, CEO, ImmunoGen Solutions"
-  },
-  {
-    id: 12,
-    quote: "The visualization they created for our CAR-T platform was so compelling that it became our primary pitch deck asset. Investors immediately understood our technology's potential.",
-    author: "Dr. David Chen, CEO, CellTherapy Innovations"
-  },
-  {
-    id: 13,
-    quote: "Biomol Visual's team doesn't just create animations—they create scientific communication masterpieces. Their work helped us secure partnerships with three major pharma companies.",
-    author: "Dr. Jennifer Walsh, CEO, BioPharma Dynamics"
-  },
-  {
-    id: 14,
-    quote: "The molecular visualization they created for our antibody platform was so accurate and engaging that it's now used in our internal training programs and external presentations.",
-    author: "Dr. Thomas Anderson, CSO, Antibody Therapeutics Inc"
-  },
-  {
-    id: 15,
-    quote: "Their ability to distill complex scientific concepts into clear, visual narratives is exceptional. The animation became our most valuable asset for investor relations and partnership discussions.",
-    author: "Dr. Maria Santos, CEO, Precision Medicine Corp"
-  },
-  {
-    id: 16,
-    quote: "Working with Biomol Visual was the best investment we made for our Series B. The scientific accuracy and visual impact of their work helped us exceed our funding target by 25%.",
-    author: "Dr. Kevin Liu, CEO, Molecular Diagnostics Ltd"
-  },
-  {
-    id: 17,
-    quote: "Their team's deep understanding of molecular biology combined with exceptional visual storytelling created the perfect communication tool for our breakthrough technology.",
-    author: "Dr. Rachel Green, CSO, Gene Editing Solutions"
-  },
-  {
-    id: 18,
-    quote: "The animation they created for our stem cell platform was so compelling that it's now featured in our company's annual report and used in all major presentations.",
-    author: "Dr. James Wilson, CEO, Regenerative Medicine Inc"
+    id: 5,
+    name: "Benjamin Denton",
+    title: "Founder & CEO",
+    image: "/images/team/benjamin.jpg",
+    description: "Founded Biomol Visual after working in pharmaceutical business development, managing drug discovery partnerships. Built and retained an exceptional team of PhD and MSc specialists. Driven by the belief that entrepreneurship fuels scientific progress. He helps biotech founders turn innovations into funded realities. Still gets nightmares about Comic Sans in investor presentations.",
+    credentials: "BSc Biotechnology, University College London",
+    expertise: "Team Leadership, Business Strategy, Lean Operations",
+    location: "United States (Pacific Time)"
   }
 ];
 
@@ -108,6 +117,7 @@ export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentTeamSlide, setCurrentTeamSlide] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleShowReel = () => {
@@ -142,15 +152,30 @@ export default function Home() {
     }
   };
 
-  // Slider navigation functions
+  // Single testimonial slider navigation functions with horizontal movement
   const nextSlide = () => {
-    const maxSlide = Math.ceil(testimonials.length / 6) - 1; // 6 items per slide (3 per row × 2 rows)
-    setCurrentSlide((prev) => (prev < maxSlide ? prev + 1 : 0));
+    setCurrentSlide((prev) => (prev < testimonials.length - 1 ? prev + 1 : 0));
   };
 
   const prevSlide = () => {
-    const maxSlide = Math.ceil(testimonials.length / 6) - 1;
-    setCurrentSlide((prev) => (prev > 0 ? prev - 1 : maxSlide));
+    setCurrentSlide((prev) => (prev > 0 ? prev - 1 : testimonials.length - 1));
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
+  // Team slider navigation functions
+  const nextTeamSlide = () => {
+    setCurrentTeamSlide((prev) => (prev < 4 ? prev + 1 : 0)); // 5 team members (0-4)
+  };
+
+  const prevTeamSlide = () => {
+    setCurrentTeamSlide((prev) => (prev > 0 ? prev - 1 : 4));
+  };
+
+  const goToTeamSlide = (index: number) => {
+    setCurrentTeamSlide(index);
   };
 
 
@@ -418,62 +443,91 @@ export default function Home() {
 
       {/* Testimonials Section */}
       <section className="py-20 bg-gray-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-h2 font-display text-gray-200 mb-6">What Our Clients Say</h2>
           </div>
 
-          {/* Slider Container */}
+          {/* Single Testimonial Slider */}
           <div className="relative">
             {/* Navigation Buttons */}
             <button
               onClick={prevSlide}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 sm:-translate-x-4 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-gray-850/80 hover:bg-gray-850 border border-white/20 rounded-full flex items-center justify-center transition-all duration-300"
-              aria-label="Previous testimonials"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-gray-850/90 hover:bg-purple-500/20 border border-purple-500/30 hover:border-orange-500/50 rounded-full flex items-center justify-center transition-all duration-500 backdrop-blur-sm"
+              aria-label="Previous testimonial"
             >
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-gray-300 hover:text-orange-400 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
 
             <button
               onClick={nextSlide}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 sm:translate-x-4 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-gray-850/80 hover:bg-gray-850 border border-white/20 rounded-full flex items-center justify-center transition-all duration-300"
-              aria-label="Next testimonials"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-gray-850/90 hover:bg-purple-500/20 border border-purple-500/30 hover:border-orange-500/50 rounded-full flex items-center justify-center transition-all duration-500 backdrop-blur-sm"
+              aria-label="Next testimonial"
             >
-              <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-gray-300 hover:text-orange-400 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
 
-            {/* Slider Content */}
-            <div className="overflow-hidden">
-              <div
+            {/* Horizontal Testimonial Slider */}
+            <div className="mx-16 overflow-hidden">
+              <div 
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
               >
-                {Array.from({ length: Math.ceil(testimonials.length / 6) }, (_, slideIndex) => (
-                  <div key={slideIndex} className="w-full flex-shrink-0">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {/* First Row - 3 items */}
-                      {testimonials.slice(slideIndex * 6, slideIndex * 6 + 3).map((testimonial) => (
-                        <div key={testimonial.id} className="bg-gray-850/50 backdrop-blur-sm border border-gray-850 rounded-xl p-4 sm:p-6 h-full hover:bg-orange-500/50 transition-all duration-300">
-                          <p className="text-body text-gray-300 hover:text-gray-200 italic mb-3 sm:mb-4 leading-relaxed transition-all duration-300 font-text">
-                            "{testimonial.quote}"
-                          </p>
-                          <p className="font-medium text-gray-200 text-small font-text">— {testimonial.author}</p>
+                {testimonials.map((testimonial, index) => (
+                  <div key={testimonial.id} className="w-full flex-shrink-0 px-4">
+                    <div className="bg-gray-850/90 backdrop-blur-sm rounded-2xl p-8 shadow-2xl border border-purple-500/20 hover:border-orange-500/30 transition-all duration-500 h-[500px] flex flex-col">
+                      <div className="flex flex-col md:flex-row gap-8 flex-1">
+                        {/* Left Side - Company Info & Quote */}
+                        <div className="flex-1 flex flex-col justify-between">
+                          <div>
+                            {/* Company Logo and Info */}
+                            <div className="flex items-center mb-6">
+                              <div className="backdrop-blur-sm rounded-lg flex items-center justify-center max-w-[140px] h-[39px] md:h-[52.83px] flex-shrink-0 mr-4">
+                                <img 
+                                  src={testimonial.logo} 
+                                  alt={`${testimonial.company} logo`}
+                                  className="h-[32px] md:h-[40px] w-auto max-w-full object-contain filter brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300"
+                                  onError={(e) => {
+                                    const target = e.target as HTMLImageElement;
+                                    target.style.display = 'none';
+                                  }}
+                                />
+                              </div>
+                            </div>
+                            
+                            <blockquote className="text-2xl md:text-3xl font-bold text-gray-200 leading-tight">
+                              "{testimonial.brief}"
+                            </blockquote>
+                          </div>
                         </div>
-                      ))}
 
-                      {/* Second Row - 3 items */}
-                      {testimonials.slice(slideIndex * 6 + 3, slideIndex * 6 + 6).map((testimonial) => (
-                        <div key={testimonial.id} className="bg-gray-850/50 backdrop-blur-sm border border-gray-850 rounded-xl p-4 sm:p-6 h-full hover:bg-orange-500/40 transition-all duration-300">
-                          <p className="text-body text-gray-300 hover:text-gray-200 italic mb-3 sm:mb-4 leading-relaxed transition-all duration-300 font-text">
-                            "{testimonial.quote}"
-                          </p>
-                          <p className="font-medium text-gray-200 text-small font-text">— {testimonial.author}</p>
+                        {/* Right Side - Author Info & CTA */}
+                        <div className="flex-1 flex flex-col justify-between">
+                          <div>
+                            {/* Quotation Mark Icon */}
+                            <div className="flex justify-end flex-col gap-2 mb-6">
+                              <svg className="w-16 h-16 text-purple-500" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                              </svg>
+                              <p className="text-body text-gray-300 text-left font-text">{testimonial.quote}</p>
+                            </div>
+                          </div>
+
+                          {/* Author Info */}
+                          <div className="border-t border-gray-600 pt-6">
+                            <div className="text-gray-200 font-semibold text-lg">
+                              {testimonial.author}
+                            </div>
+                            <div className="text-gray-400 text-sm mt-1">
+                              {testimonial.title}
+                            </div>
+                          </div>
                         </div>
-                      ))}
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -482,15 +536,15 @@ export default function Home() {
 
             {/* Slide Indicators */}
             <div className="flex justify-center mt-8 space-x-2">
-              {Array.from({ length: Math.ceil(testimonials.length / 6) }, (_, index) => (
+              {testimonials.map((_, index) => (
                 <button
                   key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentSlide
-                    ? 'bg-orange-500 scale-125'
-                    : 'bg-white/30 hover:bg-white/50'
+                  onClick={() => goToSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-500 ${index === currentSlide
+                    ? 'bg-orange-500 shadow-lg shadow-orange-500/50'
+                    : 'bg-gray-600 hover:bg-purple-500/50'
                     }`}
-                  aria-label={`Go to slide ${index + 1}`}
+                  aria-label={`Go to testimonial ${index + 1}`}
                 />
               ))}
             </div>
@@ -508,120 +562,97 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="space-y-12">
-            <div className="bg-gray-900 hover:bg-orange-500/40 rounded-xl p-0 hover:border-orange-500/50 border border-white/20 transition-colors group">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start cursor-pointer">
-                <div className="w-full h-full rounded-l-xl mx-auto lg:mx-0 overflow-hidden">
-                  <img
-                    src="/images/team/Ksenia.jpg"
-                    alt="Ksenia Timonina, PhD"
-                    className="w-full h-full object-cover transition-transform duration-300"
-                  />
-                </div>
-                <div className="lg:col-span-2 py-8 pr-8">
-                  <h4 className="text-h3 font-display text-purple-500 group-hover:text-gray-200 mb-4 transition-colors duration-300">Ksenia Timonina, PhD<br />Scientific Managing Director</h4>
-                  <p className="text-gray-300 group-hover:text-gray-100 leading-relaxed mb-6 transition-colors duration-300 font-text">
-                    Your main point of contact. Ensures scientific accuracy across all project phases, keeping timelines on track and stakeholder communication seamless. Reviews every frame for scientific precision. Five peer-reviewed papers. Also has Level 9 Piano certification, which explains why your project runs like a perfectly orchestrated symphony.
-                  </p>
-                  <div className="text-small text-gray-500 group-hover:text-gray-300 space-y-1 transition-colors duration-300 font-text">
-                    <p><strong className="text-purple-500 group-hover:text-orange-500">Credentials:</strong> PhD Molecular Biology, York University</p>
-                    <p><strong className="text-purple-500 group-hover:text-orange-500">Expertise:</strong> Project Management, Team Leadership, Scientific Review</p>
-                    <p><strong className="text-purple-500 group-hover:text-orange-500">Based in:</strong> Canada (Eastern Time)</p>
+          {/* Team Slider */}
+          <div className="relative">
+            {/* Navigation Buttons */}
+            <button
+              onClick={prevTeamSlide}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-gray-850/90 hover:bg-purple-500/20 border border-purple-500/30 hover:border-orange-500/50 rounded-full flex items-center justify-center transition-all duration-500 hover:scale-110 backdrop-blur-sm"
+              aria-label="Previous team member"
+            >
+              <svg className="w-6 h-6 text-gray-300 hover:text-orange-400 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            <button
+              onClick={nextTeamSlide}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-gray-850/90 hover:bg-purple-500/20 border border-purple-500/30 hover:border-orange-500/50 rounded-full flex items-center justify-center transition-all duration-500 hover:scale-110 backdrop-blur-sm"
+              aria-label="Next team member"
+            >
+              <svg className="w-6 h-6 text-gray-300 hover:text-orange-400 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+
+            {/* Team Slider Container */}
+            <div className="mx-16 overflow-hidden">
+              <div 
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentTeamSlide * 100}%)` }}
+              >
+                {teamMembers.map((member, index) => (
+                  <div key={member.id} className="w-full flex-shrink-0">
+                    <div className="bg-gray-900/90 backdrop-blur-sm rounded-2xl shadow-2xl border border-purple-500/20 hover:border-orange-500/30 transition-all duration-500 flex flex-col p-4">
+                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 flex-1">
+                        {/* Column 1 - Photo */}
+                        <div className="flex flex-col">
+                          <div className="w-full h-80 rounded-xl overflow-hidden">
+                            <img
+                              src={member.image}
+                              alt={member.name}
+                              className="w-full h-full object-cover transition-transform duration-300"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Column 2 - Team Bio */}
+                        <div className="flex flex-col justify-between">
+                          <div>
+                            <h4 className="text-h3 font-display text-purple-500 mb-4">{member.name}<br />{member.title}</h4>
+                            <p className="text-gray-300 leading-relaxed font-text">
+                              {member.description}
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Column 3 - Team Credentials */}
+                        <div className="flex flex-col">
+                          <div className="space-y-1 text-small font-text">
+                            <div className="text-gray-500">
+                              <p className="font-semibold text-purple-500 mb-2">Credentials:</p>
+                              <p className="text-gray-300">{member.credentials}</p>
+                            </div>
+                            <div className="text-gray-500">
+                              <p className="font-semibold text-purple-500 mb-2">Expertise:</p>
+                              <p className="text-gray-300">{member.expertise}</p>
+                            </div>
+                            <div className="text-gray-500">
+                              <p className="font-semibold text-purple-500 mb-2">Based in:</p>
+                              <p className="text-gray-300">{member.location}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
 
-            <div className="bg-gray-900 hover:bg-orange-500/40 rounded-xl p-0 hover:border-orange-500/50 border  border-white/20 transition-colors group">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start cursor-pointer">
-                <div className="lg:col-span-2 py-8 pl-8 order-2 lg:order-1">
-                  <h4 className="text-h3 font-display text-purple-500 group-hover:text-gray-200 mb-4 transition-colors duration-300">Isabel Canto, PhD<br />Scientific Story Architect</h4>
-                  <p className="text-gray-300 group-hover:text-gray-100 leading-relaxed mb-6 transition-colors duration-300">
-                    Writes your script. Creates your storyboard. Takes your 200-slide deck and turns it into a 3-minute story that gets funded. Eight publications. Over 100 projects since 2015. Quiet in meetings but comes back with visual solutions so clever you'll wonder if she's psychic.
-                  </p>
-                  <div className="text-small text-gray-500 group-hover:text-gray-300 font-text space-y-1 transition-colors duration-300">
-                    <p><strong className="text-purple-500 group-hover:text-orange-500">Credentials:</strong> PhD Biomedical Sciences, UC San Diego</p>
-                    <p><strong className="text-purple-500 group-hover:text-orange-500">Expertise:</strong> Scientific Storytelling, Scriptwriting, Storyboarding</p>
-                    <p><strong className="text-purple-500 group-hover:text-orange-500">Based in:</strong> United States (Pacific Time)</p>
-                  </div>
-                </div>
-                <div className="w-full h-full rounded-r-xl mx-auto lg:mx-0 overflow-hidden order-1 lg:order-2">
-                  <img
-                    src="/images/team/isabel.jpg"
-                    alt="Isabel Canto, PhD"
-                    className="w-full h-full object-cover transition-transform duration-300"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-gray-900 hover:bg-orange-500/40 rounded-xl p-0 hover:border-orange-500/50 border  border-white/20 transition-colors group">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start cursor-pointer">
-                <div className="w-full h-full rounded-l-xl mx-auto lg:mx-0 overflow-hidden">
-                  <img
-                    src="/images/team/Andrew.jpg"
-                    alt="Andrew Catalano, PhD"
-                    className="w-full h-full object-cover transition-transform duration-300"
-                  />
-                </div>
-                <div className="lg:col-span-2 py-8 pr-8">
-                  <h4 className="text-h3 font-display text-purple-500 group-hover:text-gray-200 mb-4 transition-colors duration-300">Andrew Catalano, PhD<br />Scientific Visualization Specialist</h4>
-                  <p className="text-gray-300 group-hover:text-gray-100 leading-relaxed mb-6 transition-colors duration-300">
-                    Builds your molecular models. Makes sure every protein folds correctly. Published crystal structures at 4.1 Å resolution. When not perfecting your MOA, he's teaching university students why their proteins are drawn wrong.
-                  </p>
-                  <div className="text-small text-gray-500 group-hover:text-gray-300 font-text space-y-1 transition-colors duration-300">
-                    <p><strong className="text-purple-500 group-hover:text-orange-500">Credentials:</strong> PhD Cell and Systems Biology, University of Toronto</p>
-                    <p><strong className="text-purple-500 group-hover:text-orange-500">Expertise:</strong> 3D Modeling, Structural Biology, Scientific Accuracy</p>
-                    <p><strong className="text-purple-500 group-hover:text-orange-500">Based in:</strong> Canada (Eastern Time)</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-gray-900 hover:bg-orange-500/40 rounded-xl p-0 hover:border-orange-500/50 border  border-white/20 transition-colors group">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start cursor-pointer">
-                <div className="lg:col-span-2 py-8 pl-8 order-2 lg:order-1">
-                  <h4 className="text-h3 font-display text-purple-500 group-hover:text-gray-200 mb-4 transition-colors duration-300">Ushma Patel, MS<br />Scientific Art Specialist</h4>
-                  <p className="text-gray-300 group-hover:text-gray-100 leading-relaxed mb-6 transition-colors duration-300">
-                    Creates your Style Frames. Defines your visual brand. 2024 AMI Award winner. Claims her best ideas come from video games and walks, which sounds suspicious until you see the results.
-                  </p>
-                  <div className="text-small text-gray-500 group-hover:text-gray-300 font-text space-y-1 transition-colors duration-300">
-                    <p><strong className="text-purple-500 group-hover:text-orange-500">Credentials:</strong> MS Biomedical Visualization, University of Illinois Chicago; BS Neuroscience, Dominican University</p>
-                    <p><strong className="text-purple-500 group-hover:text-orange-500">Expertise:</strong> Art Direction, Style Frame Development, Visual Branding</p>
-                    <p><strong className="text-purple-500 group-hover:text-orange-500">Based in:</strong> United States (Mountain Time)</p>
-                  </div>
-                </div>
-                <div className="w-full h-full rounded-r-xl mx-auto lg:mx-0 overflow-hidden order-1 lg:order-2">
-                  <img
-                    src="/images/team/ushma.jpg"
-                    alt="Ushma Patel, MS"
-                    className="w-full h-full object-cover transition-transform duration-300"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-gray-900 hover:bg-orange-500/40 rounded-xl p-0 hover:border-orange-500/50 border  border-white/20 transition-colors group">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start cursor-pointer">
-                <div className="w-full h-full rounded-l-xl mx-auto lg:mx-0 overflow-hidden">
-                  <img
-                    src="/images/team/benjamin.jpg"
-                    alt="Benjamin Denton"
-                    className="w-full h-full object-cover transition-transform duration-300"
-                  />
-                </div>
-                <div className="lg:col-span-2 py-8 pr-8">
-                  <h4 className="text-h3 font-display text-purple-500 group-hover:text-gray-200 mb-4 transition-colors duration-300">Benjamin Denton<br />Founder & CEO</h4>
-                  <p className="text-gray-300 group-hover:text-gray-100 leading-relaxed mb-6 transition-colors duration-300">
-                    Founded Biomol Visual after working in pharmaceutical business development, managing drug discovery partnerships. Built and retained an exceptional team of PhD and MSc specialists. Driven by the belief that entrepreneurship fuels scientific progress. He helps biotech founders turn innovations into funded realities. Still gets nightmares about Comic Sans in investor presentations.
-                  </p>
-                  <div className="text-small text-gray-500 group-hover:text-gray-300 font-text space-y-1 transition-colors duration-300">
-                    <p><strong className="text-purple-500 group-hover:text-orange-500">Credentials:</strong> BSc Biotechnology, University College London</p>
-                    <p><strong className="text-purple-500 group-hover:text-orange-500">Expertise:</strong> Team Leadership, Business Strategy, Lean Operations</p>
-                    <p><strong className="text-purple-500 group-hover:text-orange-500">Based in:</strong> United States (Pacific Time)</p>
-                  </div>
-                </div>
-              </div>
+            {/* Team Slide Indicators */}
+            <div className="flex justify-center mt-8 space-x-2">
+              {teamMembers.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToTeamSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-500 ${index === currentTeamSlide
+                    ? 'bg-orange-500 scale-125 shadow-lg shadow-orange-500/50'
+                    : 'bg-gray-600 hover:bg-purple-500/50 hover:scale-110'
+                    }`}
+                  aria-label={`Go to team member ${index + 1}`}
+                />
+              ))}
             </div>
           </div>
         </div>
